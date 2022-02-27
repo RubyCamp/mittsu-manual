@@ -1,4 +1,5 @@
 baseURL = 'https://rubycamp.github.io/mittsu-manual'
+canonifyurls = true
 languageCode = 'ja'
 title = 'Ruby合宿2022春・Mittsuライブラリマニュアル'
 themesDir = "themes"
