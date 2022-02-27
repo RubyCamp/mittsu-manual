@@ -1,0 +1,53 @@
+baseURL = 'https://rubycamp.github.io/mittsu-manual'
+languageCode = 'ja'
+title = 'Ruby合宿2022春・Mittsuライブラリマニュアル'
+themesDir = "themes"
+theme = "hugo-whisper-theme"
+
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsUseClasses = true
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.55.0"
+
+# Controls how many words are printed in the content summary on the docs homepage.
+# See https://gohugo.io/content-management/summaries/
+summaryLength = 30
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "リファレンスガイド"
+    url = "/docs/"
+    weight = 2
+
+[params]
+  google_analytics_id=""
+  homepage_button_link = '/docs'
+  homepage_button_text = 'リファレンスガイドへ移動'
+  homepage_intro = ''
+  homepage_image = '/images/official_ss.png'
+
+  ## You can enable to add anchor links to header elements
+  # enable_anchor_link = true
+
+  [params.homepage_meta_tags]
+    meta_description = "[]RubyCamp 2022 spring] Mittsu refarence manual."
+    meta_og_title = "RubyCamp 2022 spring"
+    meta_og_type = "website"
+    meta_og_url = "https://www.rubycamp.jp/"
+    meta_og_image = "https://raw.githubusercontent.com/JugglerX/hugo-whisper-theme/master/images/tn.png"
+    meta_og_description = "RubyCamp 2022 spring documents."
+    meta_twitter_card = "summary"
+    meta_twitter_site = "@rubycamp_jp"
+    meta_twitter_creator = "@rubycamp_jp"
+
+  [params.logo]
+      mobile = "/images/logo-mobile.svg"
+      standard  = "/images/logo.svg"
