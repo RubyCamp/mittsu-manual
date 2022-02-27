@@ -5,18 +5,18 @@
 <title>マテリアル（質感） - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
-<link rel=stylesheet href=/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
+<link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
 </head>
 <body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
-<a href=/mittsu-manual/>
+<a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
 </li>
 <li class=menu-item-リファレンスガイド>
-<a href=/mittsu-manual/docs/>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
 </li>
@@ -26,20 +26,20 @@
 <div class=header>
 <div class=container>
 <div class=logo>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo.svg></a>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
 </div>
 <div class=logo-mobile>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo-mobile.svg></a>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
 </div>
 <div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
-<a href=/mittsu-manual/>
+<a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
 </li>
 <li class=menu-item-リファレンスガイド>
-<a href=/mittsu-manual/docs/>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
 </li>
@@ -105,7 +105,7 @@
 <h2 id=マテリアルmaterialとは>マテリアル（Material）とは</h2>
 <p>マテリアルとは、3D空間における物体の見え方を決定付ける「材質」を意味します。</p>
 <p>例えば、以下の3つは同じ立方体(BoxGeometry)ですが、それぞれ表面の色をマテリアルの属性によって変更して、別の色の球体にしています。</p>
-<figure class=center><img src=/images/5000_material/fig_1.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_1.png width=640 height=480>
 </figure>
 <p>※ 上記サンプルは、後述する「ライト」（平行光源）をシーンに1つだけ追加してライトアップしてあります。</p>
 <h2 id=マテリアルの種類>マテリアルの種類</h2>
@@ -149,19 +149,19 @@
 <p>最もシンプルなマテリアルです。</p>
 <p>光源による陰影を考慮しないフラットな表現になるため、色による塗り潰しが均一になるのが特徴です。</p>
 <p>サンプルそのままで実行可能ですので、実行してみると以下のようになります。</p>
-<figure class=center><img src=/images/5000_material/fig_2.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_2.png width=640 height=480>
 </figure>
 <h5 id=meshlambertmaterial>MeshLambertMaterial</h5>
 <p>クラス名の通り、ランバートシェーディングという技法で材質を表現するマテリアルです。</p>
 <p>MeshBasicMaterialと違い、光源による陰影を反映しますので、立体感が出ます。</p>
 <p>質感としては光沢に欠ける均質な質感となります。</p>
-<figure class=center><img src=/images/5000_material/fig_3.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_3.png width=640 height=480>
 </figure>
 <h5 id=meshphongmaterial>MeshPhongMaterial</h5>
 <p>フォンシェーディングという技法で材質を表現するマテリアルです。</p>
 <p>MeshLambertMaterialと同様に、光源による陰影を反映しますので、立体感が出ます。</p>
 <p>質感としては光沢のあるやや金属的な質感となります。</p>
-<figure class=center><img src=/images/5000_material/fig_4.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_4.png width=640 height=480>
 </figure>
 <h2 id=マテリアルのオプション>マテリアルのオプション</h2>
 <p>各マテリアルについて、initializeメソッドで受け渡せる主なオプションは以下のようになります（Ruby合宿2022において使用を想定するものに限定しています）。</p>
@@ -198,7 +198,7 @@
 画像ファイル（PNGなどのフォーマット）を読み込んで、マテリアルの「map」オプションなどに
 指定して反映させます。</p>
 <p>たとえば、以下の画像はMittsuのサンプルに同梱されている地球の表面を表すテクスチャです。</p>
-<figure class=center><img src=/images/5000_material/earth.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth.png width=640 height=480>
 </figure>
 <p>この画像を、サンプルのマテリアルに適用し、言わば画像で球体を「包み込む」ように貼り付けてみましょう。</p>
 <p>ソースコードは以下のようになります(立体感が無いと寂しいので、マテリアルは「MeshLambertMaterial」を使います)。</p>
@@ -226,7 +226,7 @@
 <span class=k>end</span>
 </code></pre></div><p>画像ファイル「earth.png」は、上記ソースコードと同じフォルダに保存しておいてください。</p>
 <p>実行すると、以下のようになります。</p>
-<figure class=center><img src=/images/5000_material/fig_5.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_5.png width=640 height=480>
 </figure>
 <p>テクスチャマッピング用の画像は、</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
@@ -242,7 +242,7 @@ load_textureメソッドは指定した画像を読み込んでMittsu::Texture�
 <p>マテリアル種別を「MeshPhongMaterial」にすると、「ノーマルマップ」というテクスチャを使って、
 テクスチャマップに凹凸があるように見せることが可能になります。</p>
 <p>先ほどの地球のテクスチャマップに対応するノーマルマップの画像は以下のようになります。</p>
-<figure class=center><img src=/images/5000_material/earth_normal.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth_normal.png width=640 height=480>
 </figure>
 <p>ノーマルマップを貼って、凹凸感を出した場合のソースコード全体が以下になります。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
@@ -269,7 +269,7 @@ load_textureメソッドは指定した画像を読み込んでMittsu::Texture�
   <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
 <span class=k>end</span>
 </code></pre></div><p>これを実行すると、</p>
-<figure class=center><img src=/images/5000_material/fig_6.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_6.png width=640 height=480>
 </figure>
 <p>のように、ノーマルマップの色調差に基づいて、テクスチャマップに凹凸感が出るようになります。</p>
 <h6 id=ノーマルマップnormal_mapとバンプマップbump_mapの違い>ノーマルマップ(normal_map)とバンプマップ(bump_map)の違い</h6>
@@ -299,6 +299,6 @@ Ruby合宿2022では基本的にノーマルマップのみを使うようにし
 </div>
 </div>
 </div>
-<script type=text/javascript src=/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
+<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
 </body>
 </html>

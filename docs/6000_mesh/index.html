@@ -5,18 +5,18 @@
 <title>メッシュ（物体） - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
-<link rel=stylesheet href=/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
+<link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
 </head>
 <body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
-<a href=/mittsu-manual/>
+<a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
 </li>
 <li class=menu-item-リファレンスガイド>
-<a href=/mittsu-manual/docs/>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
 </li>
@@ -26,20 +26,20 @@
 <div class=header>
 <div class=container>
 <div class=logo>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo.svg></a>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
 </div>
 <div class=logo-mobile>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo-mobile.svg></a>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
 </div>
 <div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
-<a href=/mittsu-manual/>
+<a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
 </li>
 <li class=menu-item-リファレンスガイド>
-<a href=/mittsu-manual/docs/>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
 </li>
@@ -126,13 +126,13 @@
 <p>つまり、カメラは-Z方向に向いてワールド座標の原点に位置しているわけですので、
 最も少ないコードでメッシュをカメラの撮影範囲に移動するとすれば、ワールド座標系において、-Z方向に
 数単位ほど移動させればよさそうですね。</p>
-<figure class=center><img src=/images/2000_scene/fig_2.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_2.png width=640 height=480>
 </figure>
 <p>上図のように、-Z方向に5単位ほど移動させるコードは、以下のように記述できます。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>5</span>
 </code></pre></div><p>このコードは、前述の「scene.add(mesh)」の前に書いても後に書いても、どちらでも問題ありません。</p>
 <p>実行結果は以下のようになります。</p>
-<figure class=center><img src=/images/6000_mesh/fig_1.png width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/6000_mesh/fig_1.png width=640 height=480>
 </figure>
 <p>後は、同じ理屈でX軸方向やY軸方向も含めて、好きな位置にメッシュを移動させることができます。</p>
 <h5 id=アニメーション>アニメーション</h5>
@@ -144,7 +144,7 @@ Mittsuのバージョンでは非常に困難です。</p>
 などを変化させることでアニメーションを表現していきましょう。</p>
 <p>例えば、以下のように、X-Z平面上で真円軌道を描いて運動する球体を表現する
 アニメーションはどのように実装すればよいでしょうか？</p>
-<figure class=center><img src=/images/6000_mesh/fig_2.gif width=640 height=480>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/6000_mesh/fig_2.gif width=640 height=480>
 </figure>
 <p>実装例の全文は次のようになります。</p>
 <p>※ 見た目に陰影がついていた方が分かりやすいので、MeshPhongMaterialを用いて陰影を付けています。</p>
@@ -180,7 +180,7 @@ Mittsuのバージョンでは非常に困難です。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>x = r * cos(θ)
 z = r * sin(θ)
 </code></pre></div><p>となるので、後はカメラにちょうどいい感じに収まるよう、-Z方向に半径rより若干大き目にオフセットしてやればよいということになります。</p>
-<figure class=center><img src=/images/6000_mesh/fig_3.png width=800 height=600>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/6000_mesh/fig_3.png width=800 height=600>
 </figure>
 <p>このように、</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
@@ -193,7 +193,7 @@ z = r * sin(θ)
 <h2 id=メッシュのグルーピング>メッシュのグルーピング</h2>
 <p>複数のメッシュを言わば「くっつけ」て、一つのメッシュのように扱うことも可能です。</p>
 <p>例えば、以下のように立方体に円錐を横方向に結合させた物体を作ってみましょう。</p>
-<figure class=center><img src=/images/6000_mesh/fig_4.png width=800 height=600>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/6000_mesh/fig_4.png width=800 height=600>
 </figure>
 <h6 id=親オブジェクトの作成>親オブジェクトの作成</h6>
 <p>まず、シンプルに緑色をした立方体のメッシュを作成します。</p>
@@ -248,7 +248,7 @@ mesh_bodyのローカル座標系における原点に位置している…つ�
   <span class=n>theta</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
 <span class=k>end</span>
 </code></pre></div><p>実行すると以下のように挙動します。</p>
-<figure class=center><img src=/images/6000_mesh/fig_5.gif width=800 height=600>
+<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/6000_mesh/fig_5.gif width=800 height=600>
 </figure>
 <p>親オブジェクトであるmesh_bodyの位置・回転情報が変化しても、子であるmesh_lenzは何もしていないのにちゃんと追随して位置関係を保っていますね。</p>
 <p>もちろん、親オブジェクトを任意に動かしながら、子オブジェクトも動かすこともできます。</p>
@@ -324,6 +324,6 @@ mesh_bodyのローカル座標系における原点に位置している…つ�
 </div>
 </div>
 </div>
-<script type=text/javascript src=/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
+<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
 </body>
 </html>
