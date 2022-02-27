@@ -1,0 +1,345 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>イベント - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
+<link rel=stylesheet href=/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
+</head>
+<body class="page page-default-single">
+<div id=main-menu-mobile class=main-menu-mobile>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<div class=wrapper>
+<div class=header>
+<div class=container>
+<div class=logo>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo.svg></a>
+</div>
+<div class=logo-mobile>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo-mobile.svg></a>
+</div>
+<div id=main-menu class=main-menu>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+</div>
+</div>
+<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+<div class=row>
+<div class="col-12 col-md-3 mb-3">
+<div class=sidebar>
+<div class=docs-menu>
+<h4>Docs</h4>
+<ul>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
+</li>
+<li class=active>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-9">
+<h1 class=title>イベント</h1>
+<div class=content>
+<h2 id=イベントとは>イベントとは</h2>
+<p>本稿における「イベント」とは、利用者がキーボードやマウスなどの「入力デバイス」を用いて、
+プログラムに対して利用者の意思を伝える行為と定義します。</p>
+<p>例えば、「利用者がキーボードの左矢印キーを押下した」とか「利用者がマウスを〇〇だけ動かした」
+といったような出来事が「イベント」です。</p>
+<h2 id=イベントハンドラ>イベントハンドラ</h2>
+<p>要するに人間が入力デバイスを介して行った「操作」がイベントということですが、ではその操作を
+受けたプログラム側（我々が作っている方）で、そのイベントが届いた時どのように挙動すべきかを
+定義するメソッドのことを「イベントハンドラ」と呼びましょう。</p>
+<p>「イベント」を「ハンドリング（取り扱う）」するメソッドなので「イベントハンドラ」です。</p>
+<p>Mittsuにおけるイベントハンドラは、レンダラーが提供する「Mittsu::GLFW::Window」クラスの
+インスタンスに定義されています。</p>
+<h4 id=具体例>具体例</h4>
+<p>例えば、「キーボードのSPACEキーが押下される都度、ワールド座標原点から-Z方向に向けて球体を
+撃ち出す」というプログラムを記述してみると、以下のようになります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+
+<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+
+<span class=c1># 弾のメッシュの参照を保持するための配列</span>
+<span class=n>bullets</span> <span class=o>=</span> <span class=o>[]</span>
+
+<span class=c1># キーボードの任意のキーが押下された際に自動的に呼び出される「on_key_pressed」メソッド</span>
+<span class=c1># の内容を定義する</span>
+<span class=c1># 引数「glfw_key」には、GLFW（OpenGLを扱うためのライブラリ）で定義された定数が自動的に</span>
+<span class=c1># セットされる</span>
+<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_key_pressed</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_key</span><span class=o>|</span>
+  <span class=c1># 押下されたキーがスペースキーであれば、新規の弾丸メッシュを生成してシーンと配列に</span>
+  <span class=c1># 格納する</span>
+  <span class=c1># ※ 簡単のためライトをセットしていないので、MeshBasicMaterialを使っている</span>
+  <span class=k>if</span> <span class=n>glfw_key</span> <span class=o>==</span> <span class=no>GLFW_KEY_SPACE</span>
+    <span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+    <span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
+    <span class=n>bullet</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+    <span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>bullet</span><span class=p>)</span>
+    <span class=n>bullets</span> <span class=o>&lt;&lt;</span> <span class=n>bullet</span>
+  <span class=k>end</span>
+<span class=k>end</span>
+
+<span class=c1># 連射してる様子を見やすくするため、若干カメラを右に移動させ、</span>
+<span class=c1># 弾の進行方向やや前方に向ける</span>
+<span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>3</span>
+<span class=n>camera</span><span class=o>.</span><span class=n>look_at</span><span class=p>(</span><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>3</span><span class=p>))</span>
+
+<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=c1># 弾配列に含まれている全ての弾についてZ座標を１フレーム分進める</span>
+  <span class=n>bullets</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>bullet</span><span class=o>|</span>
+    <span class=n>bullet</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>-=</span> <span class=mi>0</span><span class=o>.</span><span class=mi>5</span>
+  <span class=k>end</span>
+
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>このプログラムを実行した様子は以下のようになります。</p>
+<figure class=center><img src=/images/8000_events/fig_1.gif width=640 height=480>
+</figure>
+<p>画像では分かりにくいですが、スペースキーを押す都度新しい球（弾丸）
+が画面に増えていく様子が見て取れますね。</p>
+<p>なお、画像はGIFアニメーションなので途中で切れて頭に戻っていますが、このプログラムは
+本当に最小限のものなので、発射した弾丸は無限に3D空間を-Z方向に進み続けます。</p>
+<p>これだと、スペースキーを押す都度メモリ上のオブジェクトが増える一方になるので、実際
+のプログラムでは見えない領域まで進んだら球（弾丸）を削除するような処理も必要になる
+でしょう。</p>
+<h2 id=イベントハンドラの種類>イベントハンドラの種類</h2>
+<p>Mittsu::GLFW::Windowクラスでは、上記の「on_key_pressed」の他にも複数のイベントハンドラ
+が用意されています。</p>
+<p>以下、代表的な（Ruby合宿2022で使用を想定する）イベントハンドラを紹介していきます。</p>
+<p>いずれも、「on_key_pressed」と同じくブロックを取って処理を記述するタイプですので、それぞれ
+についてブロック引数の数と意味についても記載します。</p>
+<p>※ ブロック引数の名称は自由に付けられますが、説明の便宜上決め打ちで名前を付けています。</p>
+<h5 id=on_mouse_button_pressed>on_mouse_button_pressed</h5>
+<p>マウスボタンの押下を検知した際に呼ばれます。</p>
+<h6 id=例>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_mouse_button_pressed</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_button</span><span class=p>,</span> <span class=n>position</span><span class=o>|</span>
+	<span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| glfw_button | GLFW定数（マウスボタンの種別）|
+| position | Mittsu::Vector2インスタンス（position.x, position.y で座標値が得られる）</p>
+<h5 id=on_mouse_button_released>on_mouse_button_released</h5>
+<p>マウスボタンが離されたことを検知した際に呼ばれます。</p>
+<h6 id=例-1>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_mouse_button_released</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_button</span><span class=p>,</span> <span class=n>position</span><span class=o>|</span> 
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| glfw_button | GLFW定数（マウスボタンの種別）|
+| position | Mittsu::Vector2インスタンス |</p>
+<h5 id=on_mouse_move>on_mouse_move</h5>
+<p>マウスの位置が移動したことを検知した際に呼ばれます。</p>
+<h6 id=例-2>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_mouse_move</span> <span class=k>do</span> <span class=o>|</span><span class=n>position</span><span class=o>|</span>
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| position | Mittsu::Vector2インスタンス |</p>
+<h5 id=on_scroll>on_scroll</h5>
+<p>マウスホイールが回転したことを検知した際に呼ばれます。</p>
+<h6 id=例-3>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_scroll</span> <span class=k>do</span> <span class=o>|</span><span class=n>offset</span><span class=o>|</span>
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| offset | Mittsu::Vector2インスタンス（offset.x, offset.y で各座標軸毎の回転量が得られる） |</p>
+<p>※ なお、一般的なマウスではホイールは1軸であるためX成分は基本0になります。</p>
+<h5 id=on_key_released>on_key_released</h5>
+<p>キーボードのキーが押下された後、キーが離されたことを検知した際に呼ばれます。</p>
+<h6 id=例-4>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_key_released</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_key</span><span class=o>|</span>
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| glfw_key | GLFW定数（キーの種別） |</p>
+<h5 id=on_key_typed>on_key_typed</h5>
+<p>キーボードのキーが押し続けられている（いわゆる「押しっ放し状態」）ことを検知した際に呼ばれます。</p>
+<h6 id=例-5>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_key_typed</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_key</span><span class=o>|</span>
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| glfw_key | GLFW定数（キーの種別） |</p>
+<h5 id=on_character_input>on_character_input</h5>
+<p>キーボードのキー（文字としてディスプレイに表示可能なものに限る）が押下された
+ことを検知した際に呼ばれ、押下された文字そのものを返します。</p>
+<h6 id=例-6>例</h6>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=vi>@renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_character_input</span> <span class=k>do</span> <span class=o>|</span><span class=n>char</span><span class=o>|</span>
+    <span class=c1># イベント発火時の挙動を記述する</span>
+<span class=k>end</span>
+</code></pre></div><p>| ブロック引数 | 意味 |
+| char | 押下された文字そのもの |</p>
+<h2 id=glfw定数>GLFW定数</h2>
+<p>キーボードのキーやマウスのボタンなどの識別用に、GLFWが用意している定数のことを、
+本マニュアルでは「GLFW定数」と呼びます。</p>
+<p>GLFW定数はそのまま利用してももちろん問題はありませんが、将来的にライブラリ側で変更される
+可能性を考慮すると、以下のように自前のハッシュとしてワンクッション噛ませておくと、GLFWの
+バージョンアップなどの際に定数が変化しても（あまりそのようなケースは無いかも知れませんが）
+プログラム側を変更せずにこのハッシュだけアップデートすれば良い状態にできます。</p>
+<p>以下、Ruby合宿2022の範囲内で使用する可能性のあるGLFW定数の一覧を、上述のハッシュ形式で紹介します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=c1># GLFW定数へのマッピング</span>
+<span class=no>GLFW_CONSTS</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=ss>m_left</span><span class=p>:</span> <span class=no>GLFW_MOUSE_BUTTON_LEFT</span><span class=p>,</span>   <span class=c1># マウス左ボタン</span>
+    <span class=ss>m_right</span><span class=p>:</span> <span class=no>GLFW_MOUSE_BUTTON_RIGHT</span><span class=p>,</span> <span class=c1># マウス右ボタン</span>
+    <span class=ss>k_up</span><span class=p>:</span> <span class=no>GLFW_KEY_UP</span><span class=p>,</span>                <span class=c1># ↑</span>
+    <span class=ss>k_down</span><span class=p>:</span> <span class=no>GLFW_KEY_DOWN</span><span class=p>,</span>            <span class=c1># ↓</span>
+    <span class=ss>k_left</span><span class=p>:</span> <span class=no>GLFW_KEY_LEFT</span><span class=p>,</span>            <span class=c1># ←</span>
+    <span class=ss>k_right</span><span class=p>:</span> <span class=no>GLFW_KEY_RIGHT</span><span class=p>,</span>          <span class=c1># →</span>
+    <span class=ss>k_0</span><span class=p>:</span> <span class=no>GLFW_KEY_0</span><span class=p>,</span>                  <span class=c1># 0</span>
+    <span class=ss>k_1</span><span class=p>:</span> <span class=no>GLFW_KEY_1</span><span class=p>,</span>                  <span class=c1># 1</span>
+    <span class=ss>k_2</span><span class=p>:</span> <span class=no>GLFW_KEY_2</span><span class=p>,</span>                  <span class=c1># 2</span>
+    <span class=ss>k_3</span><span class=p>:</span> <span class=no>GLFW_KEY_3</span><span class=p>,</span>                  <span class=c1># 3</span>
+    <span class=ss>k_4</span><span class=p>:</span> <span class=no>GLFW_KEY_4</span><span class=p>,</span>                  <span class=c1># 4</span>
+    <span class=ss>k_5</span><span class=p>:</span> <span class=no>GLFW_KEY_5</span><span class=p>,</span>                  <span class=c1># 5</span>
+    <span class=ss>k_6</span><span class=p>:</span> <span class=no>GLFW_KEY_6</span><span class=p>,</span>                  <span class=c1># 6</span>
+    <span class=ss>k_7</span><span class=p>:</span> <span class=no>GLFW_KEY_7</span><span class=p>,</span>                  <span class=c1># 7</span>
+    <span class=ss>k_8</span><span class=p>:</span> <span class=no>GLFW_KEY_8</span><span class=p>,</span>                  <span class=c1># 8</span>
+    <span class=ss>k_9</span><span class=p>:</span> <span class=no>GLFW_KEY_9</span><span class=p>,</span>                  <span class=c1># 9</span>
+    <span class=ss>k_num0</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_0</span><span class=p>,</span>            <span class=c1># テンキー0</span>
+    <span class=ss>k_num1</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_1</span><span class=p>,</span>            <span class=c1># テンキー1</span>
+    <span class=ss>k_num2</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_2</span><span class=p>,</span>            <span class=c1># テンキー2</span>
+    <span class=ss>k_num3</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_3</span><span class=p>,</span>            <span class=c1># テンキー3</span>
+    <span class=ss>k_num4</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_4</span><span class=p>,</span>            <span class=c1># テンキー4</span>
+    <span class=ss>k_num5</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_5</span><span class=p>,</span>            <span class=c1># テンキー5</span>
+    <span class=ss>k_num6</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_6</span><span class=p>,</span>            <span class=c1># テンキー6</span>
+    <span class=ss>k_num7</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_7</span><span class=p>,</span>            <span class=c1># テンキー7</span>
+    <span class=ss>k_num8</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_8</span><span class=p>,</span>            <span class=c1># テンキー8</span>
+    <span class=ss>k_num9</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_9</span><span class=p>,</span>            <span class=c1># テンキー9</span>
+    <span class=ss>k_add</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_ADD</span><span class=p>,</span>           <span class=c1># +</span>
+    <span class=ss>k_sub</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_SUBTRACT</span><span class=p>,</span>      <span class=c1># -</span>
+    <span class=ss>k_multi</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_MULTIPLY</span><span class=p>,</span>    <span class=c1># *</span>
+    <span class=ss>k_divide</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_DIVIDE</span><span class=p>,</span>     <span class=c1># /</span>
+    <span class=ss>k_decimal</span><span class=p>:</span> <span class=no>GLFW_KEY_KP_DECIMAL</span><span class=p>,</span>   <span class=c1># .</span>
+    <span class=ss>k_a</span><span class=p>:</span> <span class=no>GLFW_KEY_A</span><span class=p>,</span>                  <span class=c1># A</span>
+    <span class=ss>k_b</span><span class=p>:</span> <span class=no>GLFW_KEY_B</span><span class=p>,</span>                  <span class=c1># B</span>
+    <span class=ss>k_c</span><span class=p>:</span> <span class=no>GLFW_KEY_C</span><span class=p>,</span>                  <span class=c1># C</span>
+    <span class=ss>k_d</span><span class=p>:</span> <span class=no>GLFW_KEY_D</span><span class=p>,</span>                  <span class=c1># D</span>
+    <span class=ss>k_e</span><span class=p>:</span> <span class=no>GLFW_KEY_E</span><span class=p>,</span>                  <span class=c1># E</span>
+    <span class=ss>k_f</span><span class=p>:</span> <span class=no>GLFW_KEY_F</span><span class=p>,</span>                  <span class=c1># F</span>
+    <span class=ss>k_g</span><span class=p>:</span> <span class=no>GLFW_KEY_G</span><span class=p>,</span>                  <span class=c1># G</span>
+    <span class=ss>k_h</span><span class=p>:</span> <span class=no>GLFW_KEY_H</span><span class=p>,</span>                  <span class=c1># H</span>
+    <span class=ss>k_i</span><span class=p>:</span> <span class=no>GLFW_KEY_I</span><span class=p>,</span>                  <span class=c1># I</span>
+    <span class=ss>k_j</span><span class=p>:</span> <span class=no>GLFW_KEY_J</span><span class=p>,</span>                  <span class=c1># J</span>
+    <span class=ss>k_k</span><span class=p>:</span> <span class=no>GLFW_KEY_K</span><span class=p>,</span>                  <span class=c1># K</span>
+    <span class=ss>k_l</span><span class=p>:</span> <span class=no>GLFW_KEY_L</span><span class=p>,</span>                  <span class=c1># L</span>
+    <span class=ss>k_m</span><span class=p>:</span> <span class=no>GLFW_KEY_M</span><span class=p>,</span>                  <span class=c1># M</span>
+    <span class=ss>k_n</span><span class=p>:</span> <span class=no>GLFW_KEY_N</span><span class=p>,</span>                  <span class=c1># N</span>
+    <span class=ss>k_o</span><span class=p>:</span> <span class=no>GLFW_KEY_O</span><span class=p>,</span>                  <span class=c1># O</span>
+    <span class=ss>k_p</span><span class=p>:</span> <span class=no>GLFW_KEY_P</span><span class=p>,</span>                  <span class=c1># P</span>
+    <span class=ss>k_q</span><span class=p>:</span> <span class=no>GLFW_KEY_Q</span><span class=p>,</span>                  <span class=c1># Q</span>
+    <span class=ss>k_r</span><span class=p>:</span> <span class=no>GLFW_KEY_R</span><span class=p>,</span>                  <span class=c1># R</span>
+    <span class=ss>k_s</span><span class=p>:</span> <span class=no>GLFW_KEY_S</span><span class=p>,</span>                  <span class=c1># S</span>
+    <span class=ss>k_t</span><span class=p>:</span> <span class=no>GLFW_KEY_T</span><span class=p>,</span>                  <span class=c1># T</span>
+    <span class=ss>k_u</span><span class=p>:</span> <span class=no>GLFW_KEY_U</span><span class=p>,</span>                  <span class=c1># U</span>
+    <span class=ss>k_v</span><span class=p>:</span> <span class=no>GLFW_KEY_V</span><span class=p>,</span>                  <span class=c1># V</span>
+    <span class=ss>k_w</span><span class=p>:</span> <span class=no>GLFW_KEY_W</span><span class=p>,</span>                  <span class=c1># W</span>
+    <span class=ss>k_x</span><span class=p>:</span> <span class=no>GLFW_KEY_X</span><span class=p>,</span>                  <span class=c1># X</span>
+    <span class=ss>k_y</span><span class=p>:</span> <span class=no>GLFW_KEY_Y</span><span class=p>,</span>                  <span class=c1># Y</span>
+    <span class=ss>k_z</span><span class=p>:</span> <span class=no>GLFW_KEY_Z</span><span class=p>,</span>                  <span class=c1># Z</span>
+    <span class=ss>k_esc</span><span class=p>:</span> <span class=no>GLFW_KEY_ESCAPE</span><span class=p>,</span>           <span class=c1># ESC</span>
+    <span class=ss>k_space</span><span class=p>:</span> <span class=no>GLFW_KEY_SPACE</span><span class=p>,</span>          <span class=c1># SPACE</span>
+    <span class=ss>k_enter</span><span class=p>:</span> <span class=no>GLFW_KEY_ENTER</span><span class=p>,</span>          <span class=c1># ENTER</span>
+    <span class=ss>k_rshift</span><span class=p>:</span> <span class=no>GLFW_KEY_RIGHT_SHIFT</span><span class=p>,</span>   <span class=c1># 右SHIFT</span>
+    <span class=ss>k_rctrl</span><span class=p>:</span> <span class=no>GLFW_KEY_RIGHT_CONTROL</span><span class=p>,</span>  <span class=c1># 右CTRL</span>
+    <span class=ss>k_lshift</span><span class=p>:</span> <span class=no>GLFW_KEY_LEFT_SHIFT</span><span class=p>,</span>    <span class=c1># 左SHIFT</span>
+    <span class=ss>k_lctrl</span><span class=p>:</span> <span class=no>GLFW_KEY_LEFT_CONTROL</span><span class=p>,</span>   <span class=c1># 左CTRL</span>
+    <span class=ss>k_tab</span><span class=p>:</span> <span class=no>GLFW_KEY_TAB</span><span class=p>,</span>              <span class=c1># TAB</span>
+    <span class=ss>k_bs</span><span class=p>:</span> <span class=no>GLFW_KEY_BACKSPACE</span><span class=p>,</span>         <span class=c1># BS</span>
+    <span class=ss>k_del</span><span class=p>:</span> <span class=no>GLFW_KEY_DELETE</span><span class=p>,</span>           <span class=c1># DEL</span>
+    <span class=ss>k_insert</span><span class=p>:</span> <span class=no>GLFW_KEY_INSERT</span><span class=p>,</span>        <span class=c1># INSERT</span>
+    <span class=ss>k_home</span><span class=p>:</span> <span class=no>GLFW_KEY_HOME</span><span class=p>,</span>            <span class=c1># HOME</span>
+    <span class=ss>k_end</span><span class=p>:</span> <span class=no>GLFW_KEY_END</span><span class=p>,</span>              <span class=c1># END</span>
+    <span class=ss>k_pup</span><span class=p>:</span> <span class=no>GLFW_KEY_PAGE_UP</span><span class=p>,</span>          <span class=c1># PAGE UP</span>
+    <span class=ss>k_pdown</span><span class=p>:</span> <span class=no>GLFW_KEY_PAGE_DOWN</span><span class=p>,</span>      <span class=c1># PAGE DOWN</span>
+<span class=p>}</span>
+</code></pre></div><p>上記ハッシュと、このハッシュのキーと値を入れ替えたハッシュを用意しておくと便利です。</p>
+<p>キーと値を入れ替えたハッシュは以下のようにして簡単に定義できます。</p>
+<p>※ 値に重複が無いことが前提となります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>GLFW_CONSTS_INVERTED</span> <span class=o>=</span> <span class=no>GLFW_CONSTS</span><span class=o>.</span><span class=n>invert</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class=sub-footer>
+<div class=container>
+<div class=row>
+<div class=col-12>
+<div class=sub-footer-inner>
+<ul>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type=text/javascript src=/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
+</body>
+</html>

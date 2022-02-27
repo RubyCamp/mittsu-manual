@@ -1,0 +1,313 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>カメラ - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
+<link rel=stylesheet href=/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
+</head>
+<body class="page page-default-single">
+<div id=main-menu-mobile class=main-menu-mobile>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<div class=wrapper>
+<div class=header>
+<div class=container>
+<div class=logo>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo.svg></a>
+</div>
+<div class=logo-mobile>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo-mobile.svg></a>
+</div>
+<div id=main-menu class=main-menu>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+</div>
+</div>
+<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+<div class=row>
+<div class="col-12 col-md-3 mb-3">
+<div class=sidebar>
+<div class=docs-menu>
+<h4>Docs</h4>
+<ul>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
+</li>
+<li class=active>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-9">
+<h1 class=title>カメラ</h1>
+<div class=content>
+<h2 id=mittsuにおけるカメラとは>Mittsuにおけるカメラとは</h2>
+<p>Mittsuが提供する3D空間（シーン）に配置し、レンダラーに映像を供給するオブジェクトを
+「カメラ」と呼称します。</p>
+<p>2022年2月時点でMittsuが提供しているカメラの種類は、以下の3種類です。</p>
+<table>
+<thead>
+<tr>
+<th>カメラの種類</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mittsu::PerspectiveCamera</td>
+<td>遠近感を表現でき、人間の視点に近い見え方をするカメラ</td>
+</tr>
+<tr>
+<td>Mittsu::OrthographicCamera</td>
+<td>遠近感の無い平行投影用カメラ</td>
+</tr>
+<tr>
+<td>Mittsu::CubeCamera</td>
+<td>環境マッピング用の特殊なカメラ</td>
+</tr>
+</tbody>
+</table>
+<p>Ruby合宿2022では、これらのカメラの内、「Mittsu::PerspectiveCamera」を使用します。</p>
+<h2 id=カメラの作り方>カメラの作り方</h2>
+<p>カメラオブジェクトは、ここまでのサンプルでも常に作り続けていますが、initializeメソッドの仕様は
+以下のようになります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>fov</span> <span class=o>=</span> <span class=mi>50</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=n>aspect</span> <span class=o>=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=n>near</span> <span class=o>=</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=n>far</span> <span class=o>=</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=c1>#-&gt; Mittsu::PerspectiveCamera</span>
+</code></pre></div><p>各パラメータの意味は以下の通りです。</p>
+<table>
+<thead>
+<tr>
+<th>パラメータ</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fov</td>
+<td>Field of View（視野）の略で、文字通りカメラのレンズに収まる視界の広さを意味します</td>
+</tr>
+<tr>
+<td>aspect</td>
+<td>アスペクト比（画面の横幅と縦幅の比率）を意味します。ウィンドウサイズが「800x600」 ならば、800 / 600 = 1.333&mldr; となります</td>
+</tr>
+<tr>
+<td>near</td>
+<td>クリッピング距離（近端）</td>
+</tr>
+<tr>
+<td>far</td>
+<td>クリッピング距離（遠端）</td>
+</tr>
+</tbody>
+</table>
+<p>fovはデフォルトの50だと少々広すぎるように思う（個人の感想です）ので、75くらいで使うのが
+無難ではないかと思われます。</p>
+<p>あまり視野角を広く（値が小さいほど広い範囲を表示できます）しすぎると、
+その分「歪み」も大きくなるためです。</p>
+<p>aspectについては、ウィンドウサイズが決まれば自動的に決定可能ですので、
+レンダラーの生成コードもまとめて、</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>SCREEN_WIDTH</span> <span class=o>=</span> <span class=mi>800</span>
+<span class=no>SCREEN_HEIGHT</span> <span class=o>=</span> <span class=mi>600</span>
+<span class=no>ASPECT</span> <span class=o>=</span> <span class=no>SCREEN_WIDTH</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=o>.</span><span class=n>to_f</span>
+
+<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=no>ASPECT</span><span class=p>)</span>
+<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=no>SCREEN_WIDTH</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=no>SCREEN_HEIGHT</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</code></pre></div><p>のように定数化しておくと便利です。</p>
+<p>クリッピング距離は多少直感的ではない概念かも知れませんが、カメラで映し出す範囲（距離）を制限する
+機能です。</p>
+<p>これは、無限に広がる3D空間に存在する全ての物体を全部カメラで撮影するのは、
+レンダラーのパフォーマンスに大きな負担を及ぼす可能性があるため、カメラからの距離が
+「near以上、far以下」であるオブジェクトしか映さないようにする機能です。</p>
+<p>これにより、見えないほど遠距離にあるオブジェクトまで全部レンダリングしようとして無駄に
+パフォーマンスを消費することが無くなり、レンダラーのパフォーマンスが向上できます。</p>
+<p>nearを変更する必要はめったに生じないと思われますが、farは場合によっては変更した方が良い場合が
+あるかもしれません。</p>
+<h2 id=カメラの初期座標と向き>カメラの初期座標と向き</h2>
+<p>カメラは、</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>のように、renderメソッドにシーンとセットで渡されることにより、
+当該シーンの1フレーム分の撮影を行います。</p>
+<p>カメラオブジェクトが生成された時点の初期座標は、ワールド座標系の原点（[0, 0, 0]）であり、
+向きは-Z方向に向いています。</p>
+<p>カメラもまたメッシュなどと同様Object3Dクラスを継承していますので、メッシュなどと同じ感覚で
+移動・回転が行えます。</p>
+<p>例えば、以下のように3D空間で立方体が回転するアニメーションがあるとしましょう。</p>
+<figure class=center><img src=/images/7000_camera/fig_1.gif width=640 height=480>
+</figure>
+<p>この挙動を実現するには、2つの方法があり得ます。</p>
+<p>1つ目は、メッシュを回転させる方法です。</p>
+<p>全文を掲載すると以下のようになります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+
+<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+
+<span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+<span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
+
+<span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>BoxGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span>
+<span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshLambertMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
+<span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+<span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+
+<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=n>mesh</span><span class=o>.</span><span class=n>rotate_z</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>このプログラムでは、</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+	<span class=n>mesh</span><span class=o>.</span><span class=n>rotate_z</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
+	<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>のように、1フレーム毎にメッシュの方をZ軸に沿って回転させています。</p>
+<p>これとは反対の発想で実現するもう1つのパターンが、「カメラの方を回転させる」というものです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=n>camera</span><span class=o>.</span><span class=n>rotate_z</span><span class=p>(</span><span class=o>-</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>※ カメラの方が回ることになるので、同じ向きに回すためにはメッシュの場合と回転角が逆になります。</p>
+<p>これでも同じ挙動が実現できます。</p>
+<p>メッシュに対して行える操作は、基本的に全てカメラに対しても行えます。</p>
+<p>この特徴を上手く活用することで、思わぬ効果を得ることもできるかも知れません。</p>
+<h2 id=カメラの移動と向きの制御>カメラの移動と向きの制御</h2>
+<p>カメラは、前述の通り回転もできれば移動もできます。</p>
+<p>例えば、ワールド座標系の原点に立方体を配置し、立方体は動かさずにカメラの方を原点中心に半径rの
+真円軌道で移動させると、立方体が回転しているように見えることになります。</p>
+<p>しかし、その時1点問題があります。</p>
+<p>それは、カメラの位置を変えても、カメラの向いている方向は変わらないということです。</p>
+<p>そのため、カメラが真円軌道を角度Δθずつ移動する都度、カメラの向いている方向も微調整しなくては
+なりません。</p>
+<p>今回の場合は、立方体を回転しているように見せたいわけですから、カメラは常に原点方向を向き続ける
+必要があります。</p>
+<p>もちろん、Object3d#rotate_＊メソッドでカメラを正しい角度で回転させれば目的は達成できますが、
+計算は少々面倒です。</p>
+<p>そこで役に立つのが「Object3d#look_at」メソッドです。</p>
+<p>look_atメソッドは、引数で与えられたMittsu::Vector3オブジェクトが示す座標にそのオブジェクトの
+向きを向けてくれるメソッドですので、この場合は注視点となる原点（[0, 0, 0]）を「look_at」し
+続ければよいわけです。</p>
+<p>この考えに沿って実装したコード全文は以下になります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+
+<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+
+<span class=n>directionalLight1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+<span class=n>directionalLight1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight1</span><span class=p>)</span>
+
+<span class=n>directionalLight2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+<span class=n>directionalLight2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight2</span><span class=p>)</span>
+
+<span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>BoxGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span>
+<span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshPhongMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
+<span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+
+<span class=n>r</span> <span class=o>=</span> <span class=mi>3</span>
+<span class=n>theta</span> <span class=o>=</span> <span class=mi>0</span>
+<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>r</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>cos</span><span class=p>(</span><span class=n>theta</span><span class=p>)</span>
+  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=n>r</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>sin</span><span class=p>(</span><span class=n>theta</span><span class=p>)</span>
+  <span class=n>camera</span><span class=o>.</span><span class=n>look_at</span><span class=p>(</span><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span>
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+  <span class=n>theta</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
+<span class=k>end</span>
+</code></pre></div><p>※ 回転する裏側も照らす必要があるため、平行光源を2つ追加しています。</p>
+<p>実行結果は以下のようになります。</p>
+<figure class=center><img src=/images/7000_camera/fig_2.gif width=640 height=480>
+</figure>
+<p>オブジェクトを動かすか、カメラを動かすか。</p>
+<p>あるいは、その両方を動かすか。</p>
+<p>作るアプリケーションの性質に応じて検討するのが良いでしょう。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class=sub-footer>
+<div class=container>
+<div class=row>
+<div class=col-12>
+<div class=sub-footer-inner>
+<ul>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type=text/javascript src=/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
+</body>
+</html>

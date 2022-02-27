@@ -1,0 +1,189 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>Rendererクラス - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
+<link rel=stylesheet href=/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
+</head>
+<body class="page page-default-single">
+<div id=main-menu-mobile class=main-menu-mobile>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<div class=wrapper>
+<div class=header>
+<div class=container>
+<div class=logo>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo.svg></a>
+</div>
+<div class=logo-mobile>
+<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=/mittsu-manual/images/logo-mobile.svg></a>
+</div>
+<div id=main-menu class=main-menu>
+<ul>
+<li class=menu-item-home>
+<a href=/mittsu-manual/>
+<span>Home</span>
+</a>
+</li>
+<li class=menu-item-リファレンスガイド>
+<a href=/mittsu-manual/docs/>
+<span>リファレンスガイド</span>
+</a>
+</li>
+</ul>
+</div>
+<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+</div>
+</div>
+<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+<div class=row>
+<div class="col-12 col-md-3 mb-3">
+<div class=sidebar>
+<div class=docs-menu>
+<h4>Docs</h4>
+<ul>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
+</li>
+<li class=active>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
+</li>
+<li>
+<a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-9">
+<h1 class=title>Rendererクラス</h1>
+<div class=content>
+<h2 id=はじめに>はじめに</h2>
+<p>Rendererとは、仮想的に構築された3次元空間であるシーン（Scene）を、
+カメラオブジェクトを通して撮影して2次元映像として取得し、それをPCのディスプレイ上に
+作ったウィンドウに投影してくれる、いわばプロジェクターのようなものと捉えると分かりやすい
+かもしれません。</p>
+<figure class=center><img src=/images/3000_renderer/fig_1.png>
+</figure>
+<p>実際に3Dグラフィクスを表示するのは、2次元平面のディスプレイ上の、更に一部（ウィンドウ内）
+ですので、そのウィンドウの描画エリア内に、速やかに3次元空間の情報を2次元画像に変換して
+投影せねばなりません。</p>
+<p>この、仮想的な3次元空間の情報を2次元画像に瞬間的に変換して中継してくれる存在が、レンダラー
+（Renderer）です。</p>
+<h2 id=レンダラーの種類>レンダラーの種類</h2>
+<p>Mittsuの設計の原本（？）に当たるJavaScript用3Dグラフィクスライブラリ
+<a href=https://threejs.org/ title=Three.jsの公式に移動>Three.js</a>では、ウィンドウ上に描画したり
+Webブラウザの中で描画したりと、用途に応じていくつかの種類のレンダラーが存在しますが、
+Mittsuでは2022/02月時点では、OpenGLによるレンダラーのみがサポートされています。</p>
+<h2 id=レンダラーオブジェクトの作成>レンダラーオブジェクトの作成</h2>
+<p>レンダラーの初期化パラメータは多数ありますが、Ruby合宿2022においては以下の引数のみを利用します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</code></pre></div><table>
+<thead>
+<tr>
+<th>引数名</th>
+<th>意味</th>
+<th>Ruby合宿2022で使用する値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>レンダリングするウィンドウの横幅（単位: ピクセル）</td>
+<td>800</td>
+</tr>
+<tr>
+<td>height</td>
+<td>レンダリングするウィンドウの縦幅（単位: ピクセル）</td>
+<td>600</td>
+</tr>
+<tr>
+<td>title</td>
+<td>ウィンドウのタイトル</td>
+<td>RubyCamp 2022</td>
+</tr>
+</tbody>
+</table>
+<p>※ 上記は推奨値であり、絶対にこの通りでないといけないということではありません。</p>
+<h2 id=レンダラーの使い方>レンダラーの使い方</h2>
+<p>レンダラーの用途は主に2種類あります。</p>
+<h5 id=メインループとして>メインループとして</h5>
+<p>「renderer.window」オブジェクトが提供する「run」メソッドによって、
+プログラムのメインループを構成します。</p>
+<p>Ruby合宿2022においては以下のコードで統一します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+  <span class=c1># この部分で1フレームにおける3D空間の全挙動を記述する。</span>
+  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+<span class=k>end</span>
+</code></pre></div><p>上記コード中のコメント部分に、ある1フレームにおける3D空間内の全挙動を記述することが、
+Ruby合宿2022におけるプログラミングの本体部分になります。</p>
+<h5 id=イベントハンドリング>イベントハンドリング</h5>
+<p>キーボードやマウスからの入力に対してプログラムがどのように応答すべきかを定める
+「イベントハンドラ」を管理します。</p>
+<p>この機能については、「イベント」セクションを参照ください。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class=sub-footer>
+<div class=container>
+<div class=row>
+<div class=col-12>
+<div class=sub-footer-inner>
+<ul>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type=text/javascript src=/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
+</body>
+</html>
