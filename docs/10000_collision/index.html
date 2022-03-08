@@ -181,34 +181,42 @@ distance_toによって距離を測定すれば、100個のオブジェクトが
 </span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
 </span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 交差判定用Raycasterの向きを決定する単位ベクトルを生成する</span>
+</span></span><span class=line><span class=cl><span class=n>norm_vector</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>normalize</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 交差判定用のRaycasterオブジェクトを生成する</span>
-</span></span><span class=line><span class=cl><span class=c1># 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向</span>
-</span></span><span class=line><span class=cl><span class=c1># （画面左。緑の大きい球の方向）に向けて光線を飛ばす</span>
-</span></span><span class=line><span class=cl><span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=p>,</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>normalize</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-</span></span><span class=line><span class=cl>  <span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
+</span></span><span class=line><span class=cl>	<span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=c1># Mittsu::Raycaster#intersect_objectsで、交差判定を実行</span>
-</span></span><span class=line><span class=cl>  <span class=c1># 引数は、交差判定対象となるオブジェクトの配列となる</span>
-</span></span><span class=line><span class=cl>  <span class=c1># （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）</span>
-</span></span><span class=line><span class=cl>  <span class=n>collisions</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=o>[</span><span class=n>mesh2</span><span class=o>]</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>  
-</span></span><span class=line><span class=cl>  <span class=c1># 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある</span>
-</span></span><span class=line><span class=cl>  <span class=c1># オブジェクトが存在するということになる</span>
-</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>collisions</span><span class=o>.</span><span class=n>size</span> <span class=o>&gt;</span> <span class=mi>0</span>
-</span></span><span class=line><span class=cl>    <span class=c1># 最も近距離にあるオブジェクトを得る</span>
-</span></span><span class=line><span class=cl>    <span class=n>obj</span> <span class=o>=</span> <span class=n>collisions</span><span class=o>.</span><span class=n>first</span><span class=o>[</span><span class=ss>:object</span><span class=o>]</span>
-</span></span><span class=line><span class=cl>    <span class=c1># 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る</span>
-</span></span><span class=line><span class=cl>    <span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=c1># 後は同じ</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
-</span></span><span class=line><span class=cl>      <span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>end</span>
-</span></span><span class=line><span class=cl>  <span class=k>end</span>
-</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=c1># raycasterの発射点を更新する</span>
+</span></span><span class=line><span class=cl>	<span class=c1># 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向</span>
+</span></span><span class=line><span class=cl>	<span class=c1># （画面左。緑の大きい球の方向）に向けて光線を飛ばす</span>
+</span></span><span class=line><span class=cl>	<span class=n>raycaster</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=p>,</span> <span class=n>norm_vector</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># Mittsu::Raycaster#intersect_objectsで、交差判定を実行</span>
+</span></span><span class=line><span class=cl>	<span class=c1># 引数は、交差判定対象となるオブジェクトの配列となる</span>
+</span></span><span class=line><span class=cl>	<span class=c1># （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）</span>
+</span></span><span class=line><span class=cl>	<span class=n>collisions</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=o>[</span><span class=n>mesh2</span><span class=o>]</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある</span>
+</span></span><span class=line><span class=cl>	<span class=c1># オブジェクトが存在するということになる</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=n>collisions</span><span class=o>.</span><span class=n>size</span> <span class=o>&gt;</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>		<span class=c1># 最も近距離にあるオブジェクトを得る</span>
+</span></span><span class=line><span class=cl>		<span class=n>obj</span> <span class=o>=</span> <span class=n>collisions</span><span class=o>.</span><span class=n>first</span><span class=o>[</span><span class=ss>:object</span><span class=o>]</span>
+</span></span><span class=line><span class=cl>		<span class=c1># 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る</span>
+</span></span><span class=line><span class=cl>		<span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=c1># 後は同じ</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
+</span></span><span class=line><span class=cl>			<span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>end</span>
+</span></span><span class=line><span class=cl>	<span class=k>end</span>
+</span></span><span class=line><span class=cl>	<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>end</span>
-</span></span></code></pre></div><p>実行結果は先のサンプルと同じになります。</p><p>ここで、Mittsu::Raycaster#intersect_objectsというメソッドが登場しました。</p><p>このメソッドで、交差判定を実施します。</p><p>引数には、当該Raycasterで交差判定を行う全ての対象オブジェクトが入った配列を指定します。</p><p>これは、事前にプログラマー自身で用意しておくか、オブジェクト間に親子関係が設定されているならば、
+</span></span></code></pre></div><p>実行結果は先のサンプルと同じになります。</p><p>ここで、Mittsu::Raycaster#set, Mittsu::Raycaster#intersect_objectsという
+メソッドが登場しました。</p><p>Mittsu::Raycaster#setで、光線を発射する原点と向きを決定し、交差判定を実施します。</p><p>setの引数は、光線発射位置となるMittsu::Vector3オブジェクト（多くの場合、メッシュの
+positionになります）と、光線の向きを表す単位ベクトル（Mittsu::Vector3）です。</p><p>そして、setで飛ばした光線とオブジェクトの交点検出を行うのが、Mittsu::Raycaster#intersect_objectsです。</p><p>引数には、当該Raycasterで交差判定を行う全ての対象オブジェクトが入った配列を指定します。</p><p>これは、事前にプログラマー自身で用意しておくか、オブジェクト間に親子関係が設定されているならば、
 「obj.children」のようにして子オブジェクトの集合を得て使ってもよいでしょう。</p><p>※ こういう時に、Mittsu::Groupクラスが役に立ちます。</p><p>戻り値は、交差判定結果を格納したハッシュの配列になります。</p><p>前述の通り、交差判定の結果として距離が近いオブジェクトから順に格納されていますので、
 「collisions.first」で最も近いオブジェクトの交差判定結果（ハッシュ）を得ることができます。</p><p>この交差判定結果ハッシュは、以下のようなキーを持っています。</p><table>
 <thead>
