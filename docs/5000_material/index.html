@@ -2,303 +2,177 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>マテリアル（質感） - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>マテリアル（質感） - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-single">
+</head><body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li class=active>
+</li><li class=active>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
-<h1 class=title>マテリアル（質感）</h1>
-<div class=content>
-<h2 id=マテリアルmaterialとは>マテリアル（Material）とは</h2>
-<p>マテリアルとは、3D空間における物体の見え方を決定付ける「材質」を意味します。</p>
-<p>例えば、以下の3つは同じ立方体(BoxGeometry)ですが、それぞれ表面の色をマテリアルの属性によって変更して、別の色の球体にしています。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_1.png width=640 height=480>
-</figure>
-<p>※ 上記サンプルは、後述する「ライト」（平行光源）をシーンに1つだけ追加してライトアップしてあります。</p>
-<h2 id=マテリアルの種類>マテリアルの種類</h2>
-<p>例として、1つの球体を赤色で表示するプログラムを使い、マテリアルの種類による違いを見てみましょう。</p>
-<p>ソースコード全文は(少々長いですが)以下のようになります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
-<span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
-
-<span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
-<span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
-<span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
-<span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>3</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-	<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><p>この内、マテリアルを作成しているのは、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
-</code></pre></div><p>の部分になります。</p>
-<p>このマテリアルを、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
-</code></pre></div><p>のように、マテリアルを適用する対象ジオメトリ「g」とペアにしてメッシュ（後述）化することで、
-赤い表面を持つ球体を作り出しています。</p>
-<p>そして、その球体に対して、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
-<span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-</code></pre></div><p>で作成し、原点の若干斜め上に配置した平行光源で照らしています。</p>
-<p>このサンプルを用いて、マテリアルの種類を確認していきましょう。</p>
-<p>マテリアルの種類は、以下に紹介したもの以外にも存在しますが、
-本マニュアルではRuby合宿2022において使用するものに限定して紹介します。</p>
-<h5 id=meshbasicmaterial>MeshBasicMaterial</h5>
-<p>最もシンプルなマテリアルです。</p>
-<p>光源による陰影を考慮しないフラットな表現になるため、色による塗り潰しが均一になるのが特徴です。</p>
-<p>サンプルそのままで実行可能ですので、実行してみると以下のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_2.png width=640 height=480>
-</figure>
-<h5 id=meshlambertmaterial>MeshLambertMaterial</h5>
-<p>クラス名の通り、ランバートシェーディングという技法で材質を表現するマテリアルです。</p>
-<p>MeshBasicMaterialと違い、光源による陰影を反映しますので、立体感が出ます。</p>
-<p>質感としては光沢に欠ける均質な質感となります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_3.png width=640 height=480>
-</figure>
-<h5 id=meshphongmaterial>MeshPhongMaterial</h5>
-<p>フォンシェーディングという技法で材質を表現するマテリアルです。</p>
-<p>MeshLambertMaterialと同様に、光源による陰影を反映しますので、立体感が出ます。</p>
-<p>質感としては光沢のあるやや金属的な質感となります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_4.png width=640 height=480>
-</figure>
-<h2 id=マテリアルのオプション>マテリアルのオプション</h2>
-<p>各マテリアルについて、initializeメソッドで受け渡せる主なオプションは以下のようになります（Ruby合宿2022において使用を想定するものに限定しています）。</p>
-<table>
+</li></ul></div></div></div><div class="col-12 col-md-9">
+<h1 class=title>マテリアル（質感）</h1><div class=content>
+<h2 id=マテリアルmaterialとは>マテリアル（Material）とは</h2><p>マテリアルとは、3D空間における物体の見え方を決定付ける「材質」を意味します。</p><p>例えば、以下の3つは同じ立方体(BoxGeometry)ですが、それぞれ表面の色をマテリアルの属性によって変更して、別の色の球体にしています。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_1.png width=640 height=480>
+</figure><p>※ 上記サンプルは、後述する「ライト」（平行光源）をシーンに1つだけ追加してライトアップしてあります。</p><h2 id=マテリアルの種類>マテリアルの種類</h2><p>例として、1つの球体を赤色で表示するプログラムを使い、マテリアルの種類による違いを見てみましょう。</p><p>ソースコード全文は(少々長いですが)以下のようになります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>	<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>この内、マテリアルを作成しているのは、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
+</span></span></code></pre></div><p>の部分になります。</p><p>このマテリアルを、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+</span></span></code></pre></div><p>のように、マテリアルを適用する対象ジオメトリ「g」とペアにしてメッシュ（後述）化することで、
+赤い表面を持つ球体を作り出しています。</p><p>そして、その球体に対して、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></div><p>で作成し、原点の若干斜め上に配置した平行光源で照らしています。</p><p>このサンプルを用いて、マテリアルの種類を確認していきましょう。</p><p>マテリアルの種類は、以下に紹介したもの以外にも存在しますが、
+本マニュアルではRuby合宿2022において使用するものに限定して紹介します。</p><h5 id=meshbasicmaterial>MeshBasicMaterial</h5><p>最もシンプルなマテリアルです。</p><p>光源による陰影を考慮しないフラットな表現になるため、色による塗り潰しが均一になるのが特徴です。</p><p>サンプルそのままで実行可能ですので、実行してみると以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_2.png width=640 height=480>
+</figure><h5 id=meshlambertmaterial>MeshLambertMaterial</h5><p>クラス名の通り、ランバートシェーディングという技法で材質を表現するマテリアルです。</p><p>MeshBasicMaterialと違い、光源による陰影を反映しますので、立体感が出ます。</p><p>質感としては光沢に欠ける均質な質感となります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_3.png width=640 height=480>
+</figure><h5 id=meshphongmaterial>MeshPhongMaterial</h5><p>フォンシェーディングという技法で材質を表現するマテリアルです。</p><p>MeshLambertMaterialと同様に、光源による陰影を反映しますので、立体感が出ます。</p><p>質感としては光沢のあるやや金属的な質感となります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_4.png width=640 height=480>
+</figure><h2 id=マテリアルのオプション>マテリアルのオプション</h2><p>各マテリアルについて、initializeメソッドで受け渡せる主なオプションは以下のようになります（Ruby合宿2022において使用を想定するものに限定しています）。</p><table>
 <thead>
 <tr>
-<th>オプション名</th>
-<th>意味</th>
-</tr>
-</thead>
-<tbody>
+<th>オプション名</th><th>意味</th></tr></thead><tbody>
 <tr>
-<td>color</td>
-<td>マテリアルの色を16進数6桁で表現します。RGBそれぞれ2桁ずつとなります</td>
-</tr>
-<tr>
-<td>map</td>
-<td>テクスチャマップ（後述）を指定します（Mittsu::Texture）</td>
-</tr>
-<tr>
-<td>normalMap</td>
-<td>ノーマルマップ（後述）を指定します（Mittsu::Texture）</td>
-</tr>
-<tr>
-<td>wireframe</td>
-<td>ワイヤーフレーム表示のON/OFFを制御します（boolean）</td>
-</tr>
-</tbody>
-</table>
-<h2 id=テクスチャマッピング>テクスチャマッピング</h2>
-<p>マテリアルは、colorオプションで色を指定する以外にも、テクスチャマッピングという技法により
-任意の画像を貼り付けることもできます。</p>
-<p>テクスチャは「Mittsu::Texture」クラスのインスタンスとして、
+<td>color</td><td>マテリアルの色を16進数6桁で表現します。RGBそれぞれ2桁ずつとなります</td></tr><tr>
+<td>map</td><td>テクスチャマップ（後述）を指定します（Mittsu::Texture）</td></tr><tr>
+<td>normalMap</td><td>ノーマルマップ（後述）を指定します（Mittsu::Texture）</td></tr><tr>
+<td>wireframe</td><td>ワイヤーフレーム表示のON/OFFを制御します（boolean）</td></tr></tbody></table><h2 id=テクスチャマッピング>テクスチャマッピング</h2><p>マテリアルは、colorオプションで色を指定する以外にも、テクスチャマッピングという技法により
+任意の画像を貼り付けることもできます。</p><p>テクスチャは「Mittsu::Texture」クラスのインスタンスとして、
 画像ファイル（PNGなどのフォーマット）を読み込んで、マテリアルの「map」オプションなどに
-指定して反映させます。</p>
-<p>たとえば、以下の画像はMittsuのサンプルに同梱されている地球の表面を表すテクスチャです。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth.png width=640 height=480>
-</figure>
-<p>この画像を、サンプルのマテリアルに適用し、言わば画像で球体を「包み込む」ように貼り付けてみましょう。</p>
-<p>ソースコードは以下のようになります(立体感が無いと寂しいので、マテリアルは「MeshLambertMaterial」を使います)。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
-<span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
-
-<span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
-
-<span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
-<span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshLambertMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>)</span>
-<span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
-<span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><p>画像ファイル「earth.png」は、上記ソースコードと同じフォルダに保存しておいてください。</p>
-<p>実行すると、以下のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_5.png width=640 height=480>
-</figure>
-<p>テクスチャマッピング用の画像は、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
-</code></pre></div><p>として読み込んでいます。</p>
-<p>Mittsu::ImageUtilsは、Mittsuが用意している画像関係のユーティリティクラスであり、
-load_textureメソッドは指定した画像を読み込んでMittsu::Textureオブジェクトにして返してくれます。</p>
-<p>後は、このMittsu::Textureオブジェクトを、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshLambertMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>)</span>
-</code></pre></div><p>のように、マテリアル生成時のオプション「map」に与えることで、
-マテリアルにテクスチャマップを設定できます。</p>
-<h2 id=ノーマルマッピング>ノーマルマッピング</h2>
-<p>テクスチャマップはあくまでも画像を貼り付けているだけなので、どうしても平面的な見た目になります。</p>
-<p>マテリアル種別を「MeshPhongMaterial」にすると、「ノーマルマップ」というテクスチャを使って、
-テクスチャマップに凹凸があるように見せることが可能になります。</p>
-<p>先ほどの地球のテクスチャマップに対応するノーマルマップの画像は以下のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth_normal.png width=640 height=480>
-</figure>
-<p>ノーマルマップを貼って、凹凸感を出した場合のソースコード全体が以下になります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
-<span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
-
-<span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
-<span class=n>normal_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth_normal.png&#34;</span><span class=p>)</span>
-
-<span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
-<span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshPhongMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>,</span> <span class=ss>normal_map</span><span class=p>:</span> <span class=n>normal_map</span><span class=p>)</span>
-<span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
-<span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><p>これを実行すると、</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_6.png width=640 height=480>
-</figure>
-<p>のように、ノーマルマップの色調差に基づいて、テクスチャマップに凹凸感が出るようになります。</p>
-<h6 id=ノーマルマップnormal_mapとバンプマップbump_mapの違い>ノーマルマップ(normal_map)とバンプマップ(bump_map)の違い</h6>
-<p>ノーマルマップと同じように、テクスチャに凹凸感を出す技術として「バンプマッピング(Bump Mapping)」があります。</p>
-<p>Mittsu::MeshPhongMaterialでもオプション「bump_map」としてサポートされていますが、
-Ruby合宿2022では基本的にノーマルマップのみを使うようにしてください。</p>
-<p>※ 2022/02現在のMittsuのバージョンでは動作確認ができなかったため。</p>
-<p>ノーマルマップとバンプマップの違いは、凹凸感を出す元情報が、モノクロ画像の濃淡差で陰影を付ける
+指定して反映させます。</p><p>たとえば、以下の画像はMittsuのサンプルに同梱されている地球の表面を表すテクスチャです。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth.png width=640 height=480>
+</figure><p>この画像を、サンプルのマテリアルに適用し、言わば画像で球体を「包み込む」ように貼り付けてみましょう。</p><p>ソースコードは以下のようになります(立体感が無いと寂しいので、マテリアルは「MeshLambertMaterial」を使います)。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshLambertMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>画像ファイル「earth.png」は、上記ソースコードと同じフォルダに保存しておいてください。</p><p>実行すると、以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_5.png width=640 height=480>
+</figure><p>テクスチャマッピング用の画像は、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>として読み込んでいます。</p><p>Mittsu::ImageUtilsは、Mittsuが用意している画像関係のユーティリティクラスであり、
+load_textureメソッドは指定した画像を読み込んでMittsu::Textureオブジェクトにして返してくれます。</p><p>後は、このMittsu::Textureオブジェクトを、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshLambertMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>)</span>
+</span></span></code></pre></div><p>のように、マテリアル生成時のオプション「map」に与えることで、
+マテリアルにテクスチャマップを設定できます。</p><h2 id=ノーマルマッピング>ノーマルマッピング</h2><p>テクスチャマップはあくまでも画像を貼り付けているだけなので、どうしても平面的な見た目になります。</p><p>マテリアル種別を「MeshPhongMaterial」にすると、「ノーマルマップ」というテクスチャを使って、
+テクスチャマップに凹凸があるように見せることが可能になります。</p><p>先ほどの地球のテクスチャマップに対応するノーマルマップの画像は以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/earth_normal.png width=640 height=480>
+</figure><p>ノーマルマップを貼って、凹凸感を出した場合のソースコード全体が以下になります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>fog</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Uniform</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>:float</span><span class=p>,</span> <span class=mi>2000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>directionalLight</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>directionalLight</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>texture_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth.png&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>normal_map</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>ImageUtils</span><span class=o>.</span><span class=n>load_texture</span><span class=p>(</span><span class=s2>&#34;./earth_normal.png&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=mi>32</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshPhongMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>map</span><span class=p>:</span> <span class=n>texture_map</span><span class=p>,</span> <span class=ss>normal_map</span><span class=p>:</span> <span class=n>normal_map</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>これを実行すると、</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/5000_material/fig_6.png width=640 height=480>
+</figure><p>のように、ノーマルマップの色調差に基づいて、テクスチャマップに凹凸感が出るようになります。</p><h6 id=ノーマルマップnormal_mapとバンプマップbump_mapの違い>ノーマルマップ(normal_map)とバンプマップ(bump_map)の違い</h6><p>ノーマルマップと同じように、テクスチャに凹凸感を出す技術として「バンプマッピング(Bump Mapping)」があります。</p><p>Mittsu::MeshPhongMaterialでもオプション「bump_map」としてサポートされていますが、
+Ruby合宿2022では基本的にノーマルマップのみを使うようにしてください。</p><p>※ 2022/02現在のMittsuのバージョンでは動作確認ができなかったため。</p><p>ノーマルマップとバンプマップの違いは、凹凸感を出す元情報が、モノクロ画像の濃淡差で陰影を付ける
 方法（バンプマップ）か、ピクセル単位の色の違いによって法線ベクトルの向きを表現し、
-その法線ベクトルに基づいて凹凸を付ける方法（ノーマルマップ）かの違いになります。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+その法線ベクトルに基づいて凹凸を付ける方法（ノーマルマップ）かの違いになります。</p></div></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>

@@ -2,278 +2,150 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>Object3Dクラス - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Object3Dクラス - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-single">
+</head><body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li class=active>
+</li><li class=active>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
-<h1 class=title>Object3Dクラス</h1>
-<div class=content>
-<h2 id=3d空間の物体に共通する振る舞いや属性をまとめる>3D空間の物体に共通する振る舞いや属性をまとめる</h2>
-<p>「Object3D」クラスは、Mittsuにおける3Dキャラクタの基本となるクラスです。</p>
-<p>3D空間に配置され、Rendererによってウィンドウ上に描画されることになる全てのオブジェクトは、
-このObject3Dクラスを継承します。</p>
-<p>これは、立方体や球体、トーラスなどの物体だけではなく、カメラやライトのような光源類、
-そしてSceneクラスそのものも、全てObject3Dを継承し、そのメソッドが利用できます。</p>
-<p>言い換えれば、Object3Dの主要な機能を理解してさえいれば、カメラ・光源・物体といった3D空間における
-登場人物の全てを同じ操作で扱えるということになります。</p>
-<h2 id=主要な属性>主要な属性</h2>
-<h5 id=id読み取り専用int>id[読み取り専用]《int》</h5>
-<p>オブジェクトに与えられる一意な識別子です。</p>
-<h5 id=name読み書き可能string>name[読み書き可能]《string》</h5>
-<p>オブジェクトに与えられる名称です。</p>
-<p>オブジェクトに分かりやすい名称を付けておくと、後述する「get_object_by_property(get_object_by_name)」
-メソッドで希望する子オブジェクト（childオブジェクト）を簡単に探し出すことができたりします。</p>
-<h5 id=children読み書き可能array>children[読み書き可能]《Array》</h5>
-<p>当該オブジェクトに属するchildオブジェクトが全て格納された配列です。</p>
-<p>例えば、以下のように使うと、シーンに属する全てのオブジェクトの名称を階層的に表示したりする
-ことも可能です。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>p</span> <span class=n>scene</span><span class=o>.</span><span class=n>name</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>children</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>child</span><span class=o>|</span>
-  <span class=nb>p</span> <span class=s2>&#34; - </span><span class=si>#{</span><span class=n>child</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span>
-  <span class=n>child</span><span class=o>.</span><span class=n>children</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>child2</span><span class=o>|</span>
-    <span class=nb>p</span> <span class=s2>&#34;   - </span><span class=si>#{</span><span class=n>child2</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span>
-  <span class=k>end</span>
-<span class=k>end</span>
-</code></pre></div><h6 id=実行結果>実行結果</h6>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>&#34;&lt;Scene #1&gt;&#34;
-&#34; - &lt;Mesh #3&gt;&#34;
-&#34;   - &lt;Mesh #4&gt;&#34;
-</code></pre></div><p>なお、単に階層構造を確認するだけならば、「print_tree」メソッドを使えば1行で実行できます。</p>
-<p>childrenを使う場合は、全てのchildオブジェクトに共通した操作を与えたい場合などがよいでしょう。</p>
-<p>類似したメソッドとして「traverse」があります。</p>
-<h5 id=parent読み書き可能object3d>parent[読み書き可能]《Object3D》</h5>
-<p>自身の親オブジェクトを返します。</p>
-<p>基本的にObject3Dを継承したクラスのインスタンスが返されますが、例外として最上位のSceneオブジェクト
-親オブジェクトにはparentが無いため、その場合はnilが返されます。</p>
-<h5 id=position読み書き可能vector3>position[読み書き可能]《Vector3》</h5>
-<p>当該オブジェクトのローカル座標系における現在位置をVector3インスタンスとして返します。</p>
-<p>Vector3インスタンスは、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
-ことができるので、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>p obj.position.x   #=&gt; objのX座標値を返す
-obj.position.x = 5 #=&gt; oobjのX座標を5に設定する
-</code></pre></div><p>のように扱うこともできれば、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>obj.position = Mittsu::Vector3.new(5, 0, 0) #=&gt; objの3次元座標を、x: 5, y: 0, z: 0 に設定する
-</code></pre></div><p>のように扱うこともできます。</p>
-<p>3つの値をまとめて変更する場合、上記の他にVector3のsetメソッドを使って、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>obj.position.set(5, 0, 0) #=&gt; objの3次元座標を、x: 5, y: 0, z: 0 に設定する
-</code></pre></div><p>のように書くこともでき、多少タイプ量を減らすことも可能です。</p>
-<h5 id=rotation読み書き可能euler>rotation[読み書き可能]《Euler》</h5>
-<p>当該オブジェクトの回転状態をEuler（オイラー）インスタンスとして返します。</p>
-<p>Eulerは、その名の通り「オイラー角」を表現するクラスです。</p>
-<p>EulerインスタンスもVector3同様、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
-ことができます。</p>
-<h5 id=scale読み書き可能vector3>scale[読み書き可能]《Vector3》</h5>
-<p>当該オブジェクトの拡大率をVector3インスタンスとして返します。</p>
-<p>positionと同様、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
-ことができます。</p>
-<p>各次元毎の数値は、そのまま拡大率を意味します。</p>
-<p>1.0でオリジナルサイズ、0.5で1/2、2.0で2倍のサイズという意味になります。</p>
-<hr>
-<h2 id=主要なメソッド>主要なメソッド</h2>
-<p>Object3Dクラスには多種多様なメソッドが用意されていますが、本稿ではRuby合宿2022において必要となる
-最小限のメソッドを紹介します。</p>
-<p>※ 以下、断りのない限り全てインスタンスメソッドになります。</p>
-<h5 id=add>add</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>add(Object3D, ...) -&gt; self
-</code></pre></div><p>引数で渡されたObject3Dを継承するオブジェクトを自身のchildオブジェクトとして登録します。</p>
-<p>これにより、childオブジェクトとして登録された3Dオブジェクトは、親オブジェクトの
-位置・回転・サイズ変化に連動するようになります。</p>
-<p>引数は任意の個数与えることができます。</p>
-<h5 id=remove>remove</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>remove(Object3D, ...) -&gt; nil
-</code></pre></div><p>引数で渡されたObject3Dを継承するインスタンスを自身のchildren（childオブジェクトの集合）
-から除去します。</p>
-<p>除去されたオブジェクトは、他に親を持たない限り、レンダリング対象から外れることになります。</p>
-<p>引数は任意の個数与えることができます。</p>
-<h5 id=get_object_by_property>get_object_by_property</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_object_by_property(name, value) -&gt; Object3D
-</code></pre></div><p>引数「name」で渡された属性名が引数「value」であるchildオブジェクトを取得します。</p>
-<p>本メソッドの簡易表記的なメソッドとして、「get_object_by_id(value)」「get_object_by_name(value)」
-があります。</p>
-<p>それぞれ挙動としては、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_object_by_property(:id, value) -&gt; Object3D
-get_object_by_property(:name, value) -&gt; Object3D
-</code></pre></div><p>と同じ意味になります。</p>
-<h5 id=rotate_-x-y-zのいずれか>rotate_＊【＊: x, y, zのいずれか】</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>rotate_x(degree) -&gt; self
-rotate_y(degree) -&gt; self
-rotate_z(degree) -&gt; self
-</code></pre></div><p>X軸、Y軸、Z軸それぞれに用意されているオブジェクトの軸回転用メソッドです。</p>
-<p>オブジェクトのローカル座標系における各軸を中心として回転します。</p>
-<p>従って、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>obj</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
-<span class=n>obj</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>y</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
-</code></pre></div><p>と、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>obj</span><span class=o>.</span><span class=n>rotation_x</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
-<span class=n>obj</span><span class=o>.</span><span class=n>rotation_y</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
-</code></pre></div><p>は、同じ方向に同じ角度ずつ回転を行っていることになりますが、振る舞いが異なります。</p>
-<h5 id=translate_-x-y-zのいずれか>translate_＊【＊: x, y, zのいずれか】</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>translate_x(distance) -&gt; self
-translate_y(distance) -&gt; self
-translate_z(distance) -&gt; self
-</code></pre></div><p>X軸、Y軸、Z軸それぞれに用意されているオブジェクトの移動用メソッドです。</p>
-<p>各軸に対して、指定された距離分移動を行います。</p>
-<h5 id=look_at>look_at</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>look_at(Vector3) -&gt; Quaternion
-</code></pre></div><p>当該オブジェクトの注視点を、引数で与えられたVector3オブジェクトの座標に設定します。</p>
-<p>このメソッドがよく利用されるのは、カメラオブジェクトを常に特定の対象に向け続ける用途など
-が挙げられます。</p>
-<p>例えば、「3D空間の原点（[0, 0, 0]）に配置されたオブジェクトに対し、
+</li></ul></div></div></div><div class="col-12 col-md-9">
+<h1 class=title>Object3Dクラス</h1><div class=content>
+<h2 id=3d空間の物体に共通する振る舞いや属性をまとめる>3D空間の物体に共通する振る舞いや属性をまとめる</h2><p>「Object3D」クラスは、Mittsuにおける3Dキャラクタの基本となるクラスです。</p><p>3D空間に配置され、Rendererによってウィンドウ上に描画されることになる全てのオブジェクトは、
+このObject3Dクラスを継承します。</p><p>これは、立方体や球体、トーラスなどの物体だけではなく、カメラやライトのような光源類、
+そしてSceneクラスそのものも、全てObject3Dを継承し、そのメソッドが利用できます。</p><p>言い換えれば、Object3Dの主要な機能を理解してさえいれば、カメラ・光源・物体といった3D空間における
+登場人物の全てを同じ操作で扱えるということになります。</p><h2 id=主要な属性>主要な属性</h2><h5 id=id読み取り専用int>id[読み取り専用]《int》</h5><p>オブジェクトに与えられる一意な識別子です。</p><h5 id=name読み書き可能string>name[読み書き可能]《string》</h5><p>オブジェクトに与えられる名称です。</p><p>オブジェクトに分かりやすい名称を付けておくと、後述する「get_object_by_property(get_object_by_name)」
+メソッドで希望する子オブジェクト（childオブジェクト）を簡単に探し出すことができたりします。</p><h5 id=children読み書き可能array>children[読み書き可能]《Array》</h5><p>当該オブジェクトに属するchildオブジェクトが全て格納された配列です。</p><p>例えば、以下のように使うと、シーンに属する全てのオブジェクトの名称を階層的に表示したりする
+ことも可能です。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>p</span> <span class=n>scene</span><span class=o>.</span><span class=n>name</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>children</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>child</span><span class=o>|</span>
+</span></span><span class=line><span class=cl>  <span class=nb>p</span> <span class=s2>&#34; - </span><span class=si>#{</span><span class=n>child</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=n>child</span><span class=o>.</span><span class=n>children</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>child2</span><span class=o>|</span>
+</span></span><span class=line><span class=cl>    <span class=nb>p</span> <span class=s2>&#34;   - </span><span class=si>#{</span><span class=n>child2</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>end</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><h6 id=実行結果>実行結果</h6><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&#34;&lt;Scene #1&gt;&#34;
+</span></span><span class=line><span class=cl>&#34; - &lt;Mesh #3&gt;&#34;
+</span></span><span class=line><span class=cl>&#34;   - &lt;Mesh #4&gt;&#34;
+</span></span></code></pre></div><p>なお、単に階層構造を確認するだけならば、「print_tree」メソッドを使えば1行で実行できます。</p><p>childrenを使う場合は、全てのchildオブジェクトに共通した操作を与えたい場合などがよいでしょう。</p><p>類似したメソッドとして「traverse」があります。</p><h5 id=parent読み書き可能object3d>parent[読み書き可能]《Object3D》</h5><p>自身の親オブジェクトを返します。</p><p>基本的にObject3Dを継承したクラスのインスタンスが返されますが、例外として最上位のSceneオブジェクト
+親オブジェクトにはparentが無いため、その場合はnilが返されます。</p><h5 id=position読み書き可能vector3>position[読み書き可能]《Vector3》</h5><p>当該オブジェクトのローカル座標系における現在位置をVector3インスタンスとして返します。</p><p>Vector3インスタンスは、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
+ことができるので、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>p obj.position.x   #=&gt; objのX座標値を返す
+</span></span><span class=line><span class=cl>obj.position.x = 5 #=&gt; oobjのX座標を5に設定する
+</span></span></code></pre></div><p>のように扱うこともできれば、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>obj.position = Mittsu::Vector3.new(5, 0, 0) #=&gt; objの3次元座標を、x: 5, y: 0, z: 0 に設定する
+</span></span></code></pre></div><p>のように扱うこともできます。</p><p>3つの値をまとめて変更する場合、上記の他にVector3のsetメソッドを使って、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>obj.position.set(5, 0, 0) #=&gt; objの3次元座標を、x: 5, y: 0, z: 0 に設定する
+</span></span></code></pre></div><p>のように書くこともでき、多少タイプ量を減らすことも可能です。</p><h5 id=rotation読み書き可能euler>rotation[読み書き可能]《Euler》</h5><p>当該オブジェクトの回転状態をEuler（オイラー）インスタンスとして返します。</p><p>Eulerは、その名の通り「オイラー角」を表現するクラスです。</p><p>EulerインスタンスもVector3同様、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
+ことができます。</p><h5 id=scale読み書き可能vector3>scale[読み書き可能]《Vector3》</h5><p>当該オブジェクトの拡大率をVector3インスタンスとして返します。</p><p>positionと同様、各次元の値をそれぞれ「x」「y」「z」という属性としてアクセスする
+ことができます。</p><p>各次元毎の数値は、そのまま拡大率を意味します。</p><p>1.0でオリジナルサイズ、0.5で1/2、2.0で2倍のサイズという意味になります。</p><hr>
+<h2 id=主要なメソッド>主要なメソッド</h2><p>Object3Dクラスには多種多様なメソッドが用意されていますが、本稿ではRuby合宿2022において必要となる
+最小限のメソッドを紹介します。</p><p>※ 以下、断りのない限り全てインスタンスメソッドになります。</p><h5 id=add>add</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>add(Object3D, ...) -&gt; self
+</span></span></code></pre></div><p>引数で渡されたObject3Dを継承するオブジェクトを自身のchildオブジェクトとして登録します。</p><p>これにより、childオブジェクトとして登録された3Dオブジェクトは、親オブジェクトの
+位置・回転・サイズ変化に連動するようになります。</p><p>引数は任意の個数与えることができます。</p><h5 id=remove>remove</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>remove(Object3D, ...) -&gt; nil
+</span></span></code></pre></div><p>引数で渡されたObject3Dを継承するインスタンスを自身のchildren（childオブジェクトの集合）
+から除去します。</p><p>除去されたオブジェクトは、他に親を持たない限り、レンダリング対象から外れることになります。</p><p>引数は任意の個数与えることができます。</p><h5 id=get_object_by_property>get_object_by_property</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_object_by_property(name, value) -&gt; Object3D
+</span></span></code></pre></div><p>引数「name」で渡された属性名が引数「value」であるchildオブジェクトを取得します。</p><p>本メソッドの簡易表記的なメソッドとして、「get_object_by_id(value)」「get_object_by_name(value)」
+があります。</p><p>それぞれ挙動としては、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_object_by_property(:id, value) -&gt; Object3D
+</span></span><span class=line><span class=cl>get_object_by_property(:name, value) -&gt; Object3D
+</span></span></code></pre></div><p>と同じ意味になります。</p><h5 id=rotate_-x-y-zのいずれか>rotate_＊【＊: x, y, zのいずれか】</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>rotate_x(degree) -&gt; self
+</span></span><span class=line><span class=cl>rotate_y(degree) -&gt; self
+</span></span><span class=line><span class=cl>rotate_z(degree) -&gt; self
+</span></span></code></pre></div><p>X軸、Y軸、Z軸それぞれに用意されているオブジェクトの軸回転用メソッドです。</p><p>オブジェクトのローカル座標系における各軸を中心として回転します。</p><p>従って、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>obj</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
+</span></span><span class=line><span class=cl><span class=n>obj</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>y</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
+</span></span></code></pre></div><p>と、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>obj</span><span class=o>.</span><span class=n>rotation_x</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>obj</span><span class=o>.</span><span class=n>rotation_y</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mo>05</span><span class=p>)</span>
+</span></span></code></pre></div><p>は、同じ方向に同じ角度ずつ回転を行っていることになりますが、振る舞いが異なります。</p><h5 id=translate_-x-y-zのいずれか>translate_＊【＊: x, y, zのいずれか】</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>translate_x(distance) -&gt; self
+</span></span><span class=line><span class=cl>translate_y(distance) -&gt; self
+</span></span><span class=line><span class=cl>translate_z(distance) -&gt; self
+</span></span></code></pre></div><p>X軸、Y軸、Z軸それぞれに用意されているオブジェクトの移動用メソッドです。</p><p>各軸に対して、指定された距離分移動を行います。</p><h5 id=look_at>look_at</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>look_at(Vector3) -&gt; Quaternion
+</span></span></code></pre></div><p>当該オブジェクトの注視点を、引数で与えられたVector3オブジェクトの座標に設定します。</p><p>このメソッドがよく利用されるのは、カメラオブジェクトを常に特定の対象に向け続ける用途など
+が挙げられます。</p><p>例えば、「3D空間の原点（[0, 0, 0]）に配置されたオブジェクトに対し、
 カメラをY軸周りに真円軌道で（一定の距離を保って）周回させ、カメラ方向を常に原点に向け続ける」
-というコードは、以下のように書けます（レンダリング部分のみ抜粋）。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>distance</span> <span class=o>=</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
-<span class=n>x</span> <span class=o>=</span> <span class=mi>0</span>
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=c1># カメラそのものの座標を真円軌道で動かす</span>
-  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>distance</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>sin</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=mi>0</span><span class=o>.</span><span class=mo>01</span><span class=p>)</span>
-  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=n>distance</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>cos</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=mi>0</span><span class=o>.</span><span class=mo>01</span><span class=p>)</span>
-  
-  <span class=c1># 移動後のカメラ位置から、原点（[0, 0, 0]）を注視し直す</span>
-  <span class=n>camera</span><span class=o>.</span><span class=n>look_at</span><span class=p>(</span><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span>
-
-  <span class=c1># 1フレーム分レンダリング</span>
-  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-
-  <span class=c1># カメラ位置の基本座標を移動する</span>
-  <span class=n>x</span> <span class=o>+=</span> <span class=mi>1</span>
-<span class=k>end</span>
-</code></pre></div><p>※ 本メソッドでは回転情報を示すクォータニオン（Quaternion）オブジェクトを返してきますが、
-これを何かに利用することはあまり無いと思われるので、本合宿では無視するようにしてください。</p>
-<h5 id=get_world_position>get_world_position</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_world_position -&gt; Vector3
-</code></pre></div><p>当該オブジェクトのワールド座標系における現在位置を返します。</p>
-<h5 id=get_world_rotation>get_world_rotation</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_world_rotation -&gt; Euler
-</code></pre></div><p>当該オブジェクトのワールド座標系における現在の回転情報を返します。</p>
-<h5 id=get_world_scale>get_world_scale</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_world_scale -&gt; Vector3
-</code></pre></div><p>当該オブジェクトのワールド座標系における現在のスケール情報を返します。</p>
-<h5 id=get_world_direction>get_world_direction</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>get_world_direction -&gt; Vector3
-</code></pre></div><p>当該オブジェクトのワールド座標系における現在の注視点（向いている方向）を返します。</p>
-<h5 id=traverse>traverse</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>traverse(&amp;block) -&gt; nil
-</code></pre></div><p>当該オブジェクトの全ての子孫オブジェクトをフラット化して列挙し、与えられたブロックに代入して実行します。</p>
-<p>注意点としては、当該オブジェクトそのものも列挙の対象になるという点になります。</p>
-<p>また、全ての「子孫」が列挙されるので、当該オブジェクトXの直接の子オブジェクトAが更に子オブジェクトB, Cを持っていた
-場合、列挙されるオブジェクトは「X, A, B, C」の4つになります。</p>
-<h5 id=clone>clone</h5>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>clone -&gt; Object3D
-</code></pre></div><p>当該オブジェクトを複製し、複製された新しいオブジェクトを返します。</p>
-<p>同じ形のオブジェクトを大量生産する場合などに便利です。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+というコードは、以下のように書けます（レンダリング部分のみ抜粋）。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>distance</span> <span class=o>=</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>x</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=c1># カメラそのものの座標を真円軌道で動かす</span>
+</span></span><span class=line><span class=cl>  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>distance</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>sin</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=mi>0</span><span class=o>.</span><span class=mo>01</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>camera</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=n>distance</span> <span class=o>*</span> <span class=no>Math</span><span class=o>.</span><span class=n>cos</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=mi>0</span><span class=o>.</span><span class=mo>01</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># 移動後のカメラ位置から、原点（[0, 0, 0]）を注視し直す</span>
+</span></span><span class=line><span class=cl>  <span class=n>camera</span><span class=o>.</span><span class=n>look_at</span><span class=p>(</span><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 1フレーム分レンダリング</span>
+</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># カメラ位置の基本座標を移動する</span>
+</span></span><span class=line><span class=cl>  <span class=n>x</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>※ 本メソッドでは回転情報を示すクォータニオン（Quaternion）オブジェクトを返してきますが、
+これを何かに利用することはあまり無いと思われるので、本合宿では無視するようにしてください。</p><h5 id=get_world_position>get_world_position</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_world_position -&gt; Vector3
+</span></span></code></pre></div><p>当該オブジェクトのワールド座標系における現在位置を返します。</p><h5 id=get_world_rotation>get_world_rotation</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_world_rotation -&gt; Euler
+</span></span></code></pre></div><p>当該オブジェクトのワールド座標系における現在の回転情報を返します。</p><h5 id=get_world_scale>get_world_scale</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_world_scale -&gt; Vector3
+</span></span></code></pre></div><p>当該オブジェクトのワールド座標系における現在のスケール情報を返します。</p><h5 id=get_world_direction>get_world_direction</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>get_world_direction -&gt; Vector3
+</span></span></code></pre></div><p>当該オブジェクトのワールド座標系における現在の注視点（向いている方向）を返します。</p><h5 id=traverse>traverse</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>traverse(&amp;block) -&gt; nil
+</span></span></code></pre></div><p>当該オブジェクトの全ての子孫オブジェクトをフラット化して列挙し、与えられたブロックに代入して実行します。</p><p>注意点としては、当該オブジェクトそのものも列挙の対象になるという点になります。</p><p>また、全ての「子孫」が列挙されるので、当該オブジェクトXの直接の子オブジェクトAが更に子オブジェクトB, Cを持っていた
+場合、列挙されるオブジェクトは「X, A, B, C」の4つになります。</p><h5 id=clone>clone</h5><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>clone -&gt; Object3D
+</span></span></code></pre></div><p>当該オブジェクトを複製し、複製された新しいオブジェクトを返します。</p><p>同じ形のオブジェクトを大量生産する場合などに便利です。</p></div></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>

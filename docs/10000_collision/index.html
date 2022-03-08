@@ -2,479 +2,304 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>当たり判定について - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>当たり判定について - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-single">
+</head><body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li class=active>
+</li><li class=active>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
-<h1 class=title>当たり判定について</h1>
-<div class=content>
-<h2 id=3d空間における当たり判定とは>3D空間における当たり判定とは</h2>
-<p>ゲームなどのインタラクティブなプログラムにおいては、「当たり判定」がどうしても必須になってきます。</p>
-<p>Mittsuにおいてオブジェクト同士が「当たっている」か否かを判定する方法は、
-大きく分けて2種類存在します。</p>
-<p>1つは、オブジェクトの座標同士の「距離」を計算して接触の有無を調べるもの。</p>
-<p>もう1つは、「Raycast」と呼ばれる手法によって、オブジェクトから仮想的な「光線」を発射して、
-その光線が当たる範囲にどのようなオブジェクトが存在しているかを調べる方法です。</p>
-<p>多くの場合は、この2つを組み合わせて「当たり判定」を実現します。</p>
-<h2 id=オブジェクト間の距離の測り方>オブジェクト間の距離の測り方</h2>
-<p>ワールド座標系（シーン）に含まれる全ての3Dオブジェクトは、3次元の「位置」情報を持っています。</p>
-<p>この位置情報は、Mittsu::Vector3という3次元ベクトルを表現するクラスによって保持されています。</p>
-<p>例えば、以下のような位置関係にある2つの立方体を考えてみましょう。</p>
-<p>※ 簡単のため、Y軸成分は0としています。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_1.png width=640 height=480>
-</figure>
-<p>これはもうRubyの問題というよりは数学の問題に属するかも知れませんが、2つの3次元ベクトル間の
-距離の公式に当てはめて解くようRuby（とMittsu）で記述すると、以下のようになります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>v1</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>v2</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>dx</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>x</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>x</span>
-<span class=n>dy</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>y</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>y</span>
-<span class=n>dz</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>z</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>z</span>
-<span class=nb>puts</span> <span class=no>Math</span><span class=o>.</span><span class=n>sqrt</span><span class=p>((</span><span class=n>dx</span> <span class=o>*</span> <span class=n>dx</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=n>dy</span> <span class=o>*</span> <span class=n>dy</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=n>dz</span> <span class=o>*</span> <span class=n>dz</span><span class=p>))</span>  <span class=c1>#=&gt; 4.0</span>
-</code></pre></div><p>2つのベクトル間で、対応する成分同士の差を取って、得られた各成分毎の差分の2乗を足し合わせて
-平方根を取るという式になります。</p>
-<p>つまり、答えは「4.0」ですね。</p>
-<p>そして、Mittsu::Vector3クラスには様々なメソッドが用意されており、その中の一つに「distance_to」
-という非常に便利なメソッドが存在します。</p>
-<p>このdistance_toメソッドを使うと、上記の2つのベクトル間の距離を一発で計算してくれるので
-大変便利です。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>v1</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
-<span class=n>v2</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
-<span class=nb>puts</span> <span class=n>v1</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>v2</span><span class=p>)</span>  <span class=c1>#=&gt; 4.0</span>
-</code></pre></div><p>また、メソッド名が適切に付けられているので、コードから何をやっている処理なのかを読み取り
-易くて良いですね。</p>
-<p>3Dオブジェクトの場合、位置を表すベクトルは「position」メソッドで一発で取れますので、
-2つのメッシュ「m1」「m2」間の距離は、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>m1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>m2</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
-</code></pre></div><p>のように記述できます。</p>
-<p>なお、この「position」で得られる座標は、オブジェクトのローカル座標系の原点の位置になります。</p>
-<p>一般にローカル座標の原点はオブジェクトの「中心点」になりますので、2つのオブジェクトのposition間の距離が
+</li></ul></div></div></div><div class="col-12 col-md-9">
+<h1 class=title>当たり判定について</h1><div class=content>
+<h2 id=3d空間における当たり判定とは>3D空間における当たり判定とは</h2><p>ゲームなどのインタラクティブなプログラムにおいては、「当たり判定」がどうしても必須になってきます。</p><p>Mittsuにおいてオブジェクト同士が「当たっている」か否かを判定する方法は、
+大きく分けて2種類存在します。</p><p>1つは、オブジェクトの座標同士の「距離」を計算して接触の有無を調べるもの。</p><p>もう1つは、「Raycast」と呼ばれる手法によって、オブジェクトから仮想的な「光線」を発射して、
+その光線が当たる範囲にどのようなオブジェクトが存在しているかを調べる方法です。</p><p>多くの場合は、この2つを組み合わせて「当たり判定」を実現します。</p><h2 id=オブジェクト間の距離の測り方>オブジェクト間の距離の測り方</h2><p>ワールド座標系（シーン）に含まれる全ての3Dオブジェクトは、3次元の「位置」情報を持っています。</p><p>この位置情報は、Mittsu::Vector3という3次元ベクトルを表現するクラスによって保持されています。</p><p>例えば、以下のような位置関係にある2つの立方体を考えてみましょう。</p><p>※ 簡単のため、Y軸成分は0としています。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_1.png width=640 height=480>
+</figure><p>これはもうRubyの問題というよりは数学の問題に属するかも知れませんが、2つの3次元ベクトル間の
+距離の公式に当てはめて解くようRuby（とMittsu）で記述すると、以下のようになります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>v1</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>v2</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>dx</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>x</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>x</span>
+</span></span><span class=line><span class=cl><span class=n>dy</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>y</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>y</span>
+</span></span><span class=line><span class=cl><span class=n>dz</span> <span class=o>=</span> <span class=n>v1</span><span class=o>.</span><span class=n>z</span> <span class=o>-</span> <span class=n>v2</span><span class=o>.</span><span class=n>z</span>
+</span></span><span class=line><span class=cl><span class=nb>puts</span> <span class=no>Math</span><span class=o>.</span><span class=n>sqrt</span><span class=p>((</span><span class=n>dx</span> <span class=o>*</span> <span class=n>dx</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=n>dy</span> <span class=o>*</span> <span class=n>dy</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=n>dz</span> <span class=o>*</span> <span class=n>dz</span><span class=p>))</span>  <span class=c1>#=&gt; 4.0</span>
+</span></span></code></pre></div><p>2つのベクトル間で、対応する成分同士の差を取って、得られた各成分毎の差分の2乗を足し合わせて
+平方根を取るという式になります。</p><p>つまり、答えは「4.0」ですね。</p><p>そして、Mittsu::Vector3クラスには様々なメソッドが用意されており、その中の一つに「distance_to」
+という非常に便利なメソッドが存在します。</p><p>このdistance_toメソッドを使うと、上記の2つのベクトル間の距離を一発で計算してくれるので
+大変便利です。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>v1</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>v2</span> <span class=o>=</span> <span class=no>Mttsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>-</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>puts</span> <span class=n>v1</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>v2</span><span class=p>)</span>  <span class=c1>#=&gt; 4.0</span>
+</span></span></code></pre></div><p>また、メソッド名が適切に付けられているので、コードから何をやっている処理なのかを読み取り
+易くて良いですね。</p><p>3Dオブジェクトの場合、位置を表すベクトルは「position」メソッドで一発で取れますので、
+2つのメッシュ「m1」「m2」間の距離は、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>m1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>m2</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
+</span></span></code></pre></div><p>のように記述できます。</p><p>なお、この「position」で得られる座標は、オブジェクトのローカル座標系の原点の位置になります。</p><p>一般にローカル座標の原点はオブジェクトの「中心点」になりますので、2つのオブジェクトのposition間の距離が
 「0」になるということは、2つのオブジェクトが重なり合っている状態ということになるので、判定
-時には若干の調整をしないと、いわゆる「食い込み」が発生してしまうことになります。</p>
-<p>それでは、以上を踏まえてdistance_toによる当たり判定を実装してみましょう。</p>
-<p>以下のコードで、サイズの異なる2つの球同士の当たり判定を行い、両者が触れ合った瞬間、
-片方が消える…という動きを実現してみます。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=n>geom1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
-<span class=n>mat1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
-<span class=n>mesh1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom1</span><span class=p>,</span> <span class=n>mat1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh1</span><span class=p>)</span>
-
-<span class=n>geom2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
-<span class=n>mat2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
-<span class=n>mesh2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom2</span><span class=p>,</span> <span class=n>mat2</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
-
-<span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
-<span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>2</span>
-<span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
-<span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=c1># 大きい方の球を1フレーム分小さな球に接近させる</span>
-  <span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
-  
-  <span class=c1># 2つの球の間の距離を計算</span>
-  <span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
-  
-  <span class=c1># 得られた距離が、互いの半径の合計値（1.0 + 0.5）以下になったら触れたと判定する</span>
-  <span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
-    <span class=c1># シーンから大きい方の球を除去</span>
-    <span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
-  <span class=k>end</span>
-<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><p>実行結果は以下のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_2.gif width=640 height=480>
-</figure>
-<p>これは、説明を簡単にするために極力シンプルに実装したパターンですので、このまま他の
-あらゆるケースに応用できるかというと難しいです。</p>
-<p>なぜなら、球であれば中心点（オブジェクトの「position」）から全ての表面が等距離（半径r）
+時には若干の調整をしないと、いわゆる「食い込み」が発生してしまうことになります。</p><p>それでは、以上を踏まえてdistance_toによる当たり判定を実装してみましょう。</p><p>以下のコードで、サイズの異なる2つの球同士の当たり判定を行い、両者が触れ合った瞬間、
+片方が消える…という動きを実現してみます。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geom1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mat1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom1</span><span class=p>,</span> <span class=n>mat1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geom2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mat2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom2</span><span class=p>,</span> <span class=n>mat2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=c1># 大きい方の球を1フレーム分小さな球に接近させる</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># 2つの球の間の距離を計算</span>
+</span></span><span class=line><span class=cl>  <span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># 得られた距離が、互いの半径の合計値（1.0 + 0.5）以下になったら触れたと判定する</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
+</span></span><span class=line><span class=cl>    <span class=c1># シーンから大きい方の球を除去</span>
+</span></span><span class=line><span class=cl>    <span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=k>end</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>実行結果は以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_2.gif width=640 height=480>
+</figure><p>これは、説明を簡単にするために極力シンプルに実装したパターンですので、このまま他の
+あらゆるケースに応用できるかというと難しいです。</p><p>なぜなら、球であれば中心点（オブジェクトの「position」）から全ての表面が等距離（半径r）
 ですので、どこで接触しても同じ距離で判定できますが、立方体など球ではない形状の場合、
-そうはいかないためです。</p>
-<p>※ 球以外のジオメトリの当たり判定を厳密に行うには、もう少し複雑な処理が必要になるのですが、
-ここでは最小限の利用方法の説明にとどめたいと思います。</p>
-<h2 id=raycasterによる当たり判定対象の絞り込み>Raycasterによる当たり判定対象の絞り込み</h2>
-<p>distance_toだけでもかなりの部分当たり判定はこなすことが可能です。</p>
-<p>しかし、3D空間内にオブジェクトの数が増えてくると、当たり判定を行う「組み合わせ」の数が
-どんどん膨らんでいくという問題に直面してしまいます。</p>
-<p>例えば、シーン内に半径1の球が10個配置され、互いにランダムに運動しているとしましょう。</p>
-<p>これらの球同士が接触した場合、互いに3D空間から消滅する…というプログラムを考えてみます。</p>
-<p>この場合、distance_toによる当たり判定は、素朴に実装した場合1フレーム（1/60秒）毎に
-10 ＊ 9 ＝ 90回必要になってきますね。</p>
-<p>100個だと、100 ＊ 99 = 9900回です。</p>
-<p>実際はもうちょっと減らすことはできますが、しかしたった100個のオブジェクトでこの増え方では、
-なかなか性能がスケールしてくれません。</p>
-<p>何とかして計算回数を減らしたいものですね。</p>
-<p>そんな場合に使えるのが、Raycasterです。</p>
-<p>前述の通り、Raycasterはオブジェクトから進行方向を決めて仮想的な光線を発射し、その光線と
-「交差」したオブジェクトだけを選択してくれます。</p>
-<p>これは、RubyレベルではなくOpenGL（GLFW）のdll内部で計算してくれるため、極めて高速に処理
-されます。</p>
-<p>これによって得られるオブジェクトの配列は、</p>
-<ul>
-<li>光線と交差したオブジェクトのみが</li>
-<li>光線を発したオブジェクトから見て近い順に</li>
-</ul>
-<p>並べられて格納されてきます。</p>
-<p>ですので、一般的にはRaycasterで得られた配列の先頭要素のオブジェクト（が存在すれば）とだけ
+そうはいかないためです。</p><p>※ 球以外のジオメトリの当たり判定を厳密に行うには、もう少し複雑な処理が必要になるのですが、
+ここでは最小限の利用方法の説明にとどめたいと思います。</p><h2 id=raycasterによる当たり判定対象の絞り込み>Raycasterによる当たり判定対象の絞り込み</h2><p>distance_toだけでもかなりの部分当たり判定はこなすことが可能です。</p><p>しかし、3D空間内にオブジェクトの数が増えてくると、当たり判定を行う「組み合わせ」の数が
+どんどん膨らんでいくという問題に直面してしまいます。</p><p>例えば、シーン内に半径1の球が10個配置され、互いにランダムに運動しているとしましょう。</p><p>これらの球同士が接触した場合、互いに3D空間から消滅する…というプログラムを考えてみます。</p><p>この場合、distance_toによる当たり判定は、素朴に実装した場合1フレーム（1/60秒）毎に
+10 ＊ 9 ＝ 90回必要になってきますね。</p><p>100個だと、100 ＊ 99 = 9900回です。</p><p>実際はもうちょっと減らすことはできますが、しかしたった100個のオブジェクトでこの増え方では、
+なかなか性能がスケールしてくれません。</p><p>何とかして計算回数を減らしたいものですね。</p><p>そんな場合に使えるのが、Raycasterです。</p><p>前述の通り、Raycasterはオブジェクトから進行方向を決めて仮想的な光線を発射し、その光線と
+「交差」したオブジェクトだけを選択してくれます。</p><p>これは、RubyレベルではなくOpenGL（GLFW）のdll内部で計算してくれるため、極めて高速に処理
+されます。</p><p>これによって得られるオブジェクトの配列は、</p><ul>
+<li>光線と交差したオブジェクトのみが</li><li>光線を発したオブジェクトから見て近い順に</li></ul><p>並べられて格納されてきます。</p><p>ですので、一般的にはRaycasterで得られた配列の先頭要素のオブジェクト（が存在すれば）とだけ
 distance_toによって距離を測定すれば、100個のオブジェクトがあっても、100回のRaycaster実行で
-当たり判定が終了するということになります。</p>
-<h4 id=raycasterの使い方>Raycasterの使い方</h4>
-<p>Raycasterは、Mittsu::Raycasterクラスのインスタンスとして利用します。</p>
-<p>initializeメソッドは以下のような仕様になります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>origin</span> <span class=o>=</span> <span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>,</span> <span class=n>direction</span> <span class=o>=</span> <span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>,</span> <span class=n>near</span> <span class=o>=</span> <span class=mi>0</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=n>far</span> <span class=o>=</span> <span class=nb>Float</span><span class=o>::</span><span class=no>INFINITY</span><span class=p>)</span> <span class=c1>#=&gt; Raycaster </span>
-</code></pre></div><table>
+当たり判定が終了するということになります。</p><h4 id=raycasterの使い方>Raycasterの使い方</h4><p>Raycasterは、Mittsu::Raycasterクラスのインスタンスとして利用します。</p><p>initializeメソッドは以下のような仕様になります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>origin</span> <span class=o>=</span> <span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>,</span> <span class=n>direction</span> <span class=o>=</span> <span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>,</span> <span class=n>near</span> <span class=o>=</span> <span class=mi>0</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=n>far</span> <span class=o>=</span> <span class=nb>Float</span><span class=o>::</span><span class=no>INFINITY</span><span class=p>)</span> <span class=c1>#=&gt; Raycaster </span>
+</span></span></code></pre></div><table>
 <thead>
 <tr>
-<th>引数</th>
-<th>意味</th>
-</tr>
-</thead>
-<tbody>
+<th>引数</th><th>意味</th></tr></thead><tbody>
 <tr>
-<td>origin</td>
-<td>光線の発射位置</td>
-</tr>
-<tr>
-<td>direction</td>
-<td>光線の向き</td>
-</tr>
-<tr>
-<td>near</td>
-<td>光線の交差判定の近端</td>
-</tr>
-<tr>
-<td>far</td>
-<td>光線の交差判定の遠端</td>
-</tr>
-</tbody>
-</table>
-<p>originは、そのままRaycasterの光線を飛ばす元、つまり当たり判定の基準オブジェクトの位置です。</p>
-<p>directionが少し分かりにくいですが、これは、originの位置から光線を飛ばす「方向」を定義する
-単位ベクトルです。</p>
-<p>ここで言う単位ベクトルとは、簡単に言えば3次元ベクトルの「長さ」（norm: ノルム）が1となる、
-各成分が0～1の範囲で決定付けられるベクトル…という程度の意味と理解しておいてください。</p>
-<p>任意のベクトルを単位ベクトル化するのはやや面倒な計算が必要ですが、Mittsu::Vector3クラスには
-これを簡単に実行してくれる「normalize」という便利なメソッドが用意されています。</p>
-<p>例えば、原点[0, 0, 0] から、方向[1, 1, 1] を通って、nearからfarまでの区間
+<td>origin</td><td>光線の発射位置</td></tr><tr>
+<td>direction</td><td>光線の向き</td></tr><tr>
+<td>near</td><td>光線の交差判定の近端</td></tr><tr>
+<td>far</td><td>光線の交差判定の遠端</td></tr></tbody></table><p>originは、そのままRaycasterの光線を飛ばす元、つまり当たり判定の基準オブジェクトの位置です。</p><p>directionが少し分かりにくいですが、これは、originの位置から光線を飛ばす「方向」を定義する
+単位ベクトルです。</p><p>ここで言う単位ベクトルとは、簡単に言えば3次元ベクトルの「長さ」（norm: ノルム）が1となる、
+各成分が0～1の範囲で決定付けられるベクトル…という程度の意味と理解しておいてください。</p><p>任意のベクトルを単位ベクトル化するのはやや面倒な計算が必要ですが、Mittsu::Vector3クラスには
+これを簡単に実行してくれる「normalize」という便利なメソッドが用意されています。</p><p>例えば、原点[0, 0, 0] から、方向[1, 1, 1] を通って、nearからfarまでの区間
 （デフォルトは原点から無限遠まで）を対象に交差判定を行うことを考えると、光線の向きは
-以下のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_2.png width=640 height=480>
-</figure>
-<p>この場合の単位ベクトルは、手で計算して作ると以下のような値を取ります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>)</span>
-</code></pre></div><p>計算式は割愛しますが、いちいちこんな値を計算したくはないですね。</p>
-<p>なお、normalizeしなくてもdirectionとして使えるベクトルも存在します。</p>
-<p>それは、X・Y・Zのいずれか1つの成分のみが1または-1となるベクトルです。</p>
-<p>これは、当然ながら長さ（ノルム）は1ですので、計算するまでもなくそのまま単位ベクトルとして
-通用するわけです。</p>
-<p>しかし、いちいちそのような使い分けをするのも面倒な話ですので、directionを決める場合は
+以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_2.png width=640 height=480>
+</figure><p>この場合の単位ベクトルは、手で計算して作ると以下のような値を取ります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>5773502691896258</span><span class=p>)</span>
+</span></span></code></pre></div><p>計算式は割愛しますが、いちいちこんな値を計算したくはないですね。</p><p>なお、normalizeしなくてもdirectionとして使えるベクトルも存在します。</p><p>それは、X・Y・Zのいずれか1つの成分のみが1または-1となるベクトルです。</p><p>これは、当然ながら長さ（ノルム）は1ですので、計算するまでもなくそのまま単位ベクトルとして
+通用するわけです。</p><p>しかし、いちいちそのような使い分けをするのも面倒な話ですので、directionを決める場合は
 かならずMittsu::Vector3クラスにnormalizeメソッドを当てて単位ベクトルを作るもの、と整理
-しておく方が良いでしょう。</p>
-<p>それでは、先ほどの2つの球が接近する当たり判定について、Raycasterを交えて
-実装するとどうなるかを見てみましょう。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=n>geom1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
-<span class=n>mat1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
-<span class=n>mesh1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom1</span><span class=p>,</span> <span class=n>mat1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh1</span><span class=p>)</span>
-
-<span class=n>geom2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
-<span class=n>mat2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
-<span class=n>mesh2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom2</span><span class=p>,</span> <span class=n>mat2</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
-
-<span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
-<span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>2</span>
-<span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
-<span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
-
-<span class=c1># 交差判定用のRaycasterオブジェクトを生成する</span>
-<span class=c1># 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向</span>
-<span class=c1># （画面左。緑の大きい球の方向）に向けて光線を飛ばす</span>
-<span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=p>,</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>normalize</span><span class=p>)</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
-
-  <span class=c1># Mittsu::Raycaster#intersect_objectsで、交差判定を実行</span>
-  <span class=c1># 引数は、交差判定対象となるオブジェクトの配列となる</span>
-  <span class=c1># （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）</span>
-  <span class=n>collisions</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=o>[</span><span class=n>mesh2</span><span class=o>]</span><span class=p>)</span>
-  
-  <span class=c1># 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある</span>
-  <span class=c1># オブジェクトが存在するということになる</span>
-  <span class=k>if</span> <span class=n>collisions</span><span class=o>.</span><span class=n>size</span> <span class=o>&gt;</span> <span class=mi>0</span>
-    <span class=c1># 最も近距離にあるオブジェクトを得る</span>
-    <span class=n>obj</span> <span class=o>=</span> <span class=n>collisions</span><span class=o>.</span><span class=n>first</span><span class=o>[</span><span class=ss>:object</span><span class=o>]</span>
-    <span class=c1># 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る</span>
-    <span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
-    <span class=c1># 後は同じ</span>
-    <span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
-      <span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
-  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><p>実行結果は先のサンプルと同じになります。</p>
-<p>ここで、Mittsu::Raycaster#intersect_objectsというメソッドが登場しました。</p>
-<p>このメソッドで、交差判定を実施します。</p>
-<p>引数には、当該Raycasterで交差判定を行う全ての対象オブジェクトが入った配列を指定します。</p>
-<p>これは、事前にプログラマー自身で用意しておくか、オブジェクト間に親子関係が設定されているならば、
-「obj.children」のようにして子オブジェクトの集合を得て使ってもよいでしょう。</p>
-<p>※ こういう時に、Mittsu::Groupクラスが役に立ちます。</p>
-<p>戻り値は、交差判定結果を格納したハッシュの配列になります。</p>
-<p>前述の通り、交差判定の結果として距離が近いオブジェクトから順に格納されていますので、
-「collisions.first」で最も近いオブジェクトの交差判定結果（ハッシュ）を得ることができます。</p>
-<p>この交差判定結果ハッシュは、以下のようなキーを持っています。</p>
-<table>
+しておく方が良いでしょう。</p><p>それでは、先ほどの2つの球が接近する当たり判定について、Raycasterを交えて
+実装するとどうなるかを見てみましょう。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=mi>800</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=mi>600</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geom1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mat1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0xff0000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom1</span><span class=p>,</span> <span class=n>mat1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>geom2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mat2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshBasicMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geom2</span><span class=p>,</span> <span class=n>mat2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=o>-</span><span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=o>-</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 交差判定用のRaycasterオブジェクトを生成する</span>
+</span></span><span class=line><span class=cl><span class=c1># 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向</span>
+</span></span><span class=line><span class=cl><span class=c1># （画面左。緑の大きい球の方向）に向けて光線を飛ばす</span>
+</span></span><span class=line><span class=cl><span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=p>,</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector3</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span><span class=o>.</span><span class=n>normalize</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh2</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>03</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># Mittsu::Raycaster#intersect_objectsで、交差判定を実行</span>
+</span></span><span class=line><span class=cl>  <span class=c1># 引数は、交差判定対象となるオブジェクトの配列となる</span>
+</span></span><span class=line><span class=cl>  <span class=c1># （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）</span>
+</span></span><span class=line><span class=cl>  <span class=n>collisions</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=o>[</span><span class=n>mesh2</span><span class=o>]</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある</span>
+</span></span><span class=line><span class=cl>  <span class=c1># オブジェクトが存在するということになる</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>collisions</span><span class=o>.</span><span class=n>size</span> <span class=o>&gt;</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 最も近距離にあるオブジェクトを得る</span>
+</span></span><span class=line><span class=cl>    <span class=n>obj</span> <span class=o>=</span> <span class=n>collisions</span><span class=o>.</span><span class=n>first</span><span class=o>[</span><span class=ss>:object</span><span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る</span>
+</span></span><span class=line><span class=cl>    <span class=n>distance</span> <span class=o>=</span> <span class=n>mesh1</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>distance_to</span><span class=p>(</span><span class=n>obj</span><span class=o>.</span><span class=n>position</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 後は同じ</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>distance</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=o>.</span><span class=mi>5</span>
+</span></span><span class=line><span class=cl>      <span class=n>scene</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>end</span>
+</span></span><span class=line><span class=cl>  <span class=k>end</span>
+</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><p>実行結果は先のサンプルと同じになります。</p><p>ここで、Mittsu::Raycaster#intersect_objectsというメソッドが登場しました。</p><p>このメソッドで、交差判定を実施します。</p><p>引数には、当該Raycasterで交差判定を行う全ての対象オブジェクトが入った配列を指定します。</p><p>これは、事前にプログラマー自身で用意しておくか、オブジェクト間に親子関係が設定されているならば、
+「obj.children」のようにして子オブジェクトの集合を得て使ってもよいでしょう。</p><p>※ こういう時に、Mittsu::Groupクラスが役に立ちます。</p><p>戻り値は、交差判定結果を格納したハッシュの配列になります。</p><p>前述の通り、交差判定の結果として距離が近いオブジェクトから順に格納されていますので、
+「collisions.first」で最も近いオブジェクトの交差判定結果（ハッシュ）を得ることができます。</p><p>この交差判定結果ハッシュは、以下のようなキーを持っています。</p><table>
 <thead>
 <tr>
-<th>キー名</th>
-<th>意味</th>
-</tr>
-</thead>
-<tbody>
+<th>キー名</th><th>意味</th></tr></thead><tbody>
 <tr>
-<td>object</td>
-<td>対象オブジェクト</td>
-</tr>
-<tr>
-<td>distance</td>
-<td>判定で得られた距離</td>
-</tr>
-<tr>
-<td>point</td>
-<td>ワールド座標系上での交点</td>
-</tr>
-<tr>
-<td>face</td>
-<td>光線と交差したオブジェクト上の面（face）</td>
-</tr>
-</tbody>
-</table>
-<p>distanceキーにも距離は入っていますので、「collisions.first[:distance]」として距離を得てもよい
+<td>object</td><td>対象オブジェクト</td></tr><tr>
+<td>distance</td><td>判定で得られた距離</td></tr><tr>
+<td>point</td><td>ワールド座標系上での交点</td></tr><tr>
+<td>face</td><td>光線と交差したオブジェクト上の面（face）</td></tr></tbody></table><p>distanceキーにも距離は入っていますので、「collisions.first[:distance]」として距離を得てもよい
 のですが、厳密な当たり判定距離に変換するのには若干加工が必要ですので、シンプルに「:object」キー
-で対象オブジェクトを取得し、distance_toで判定した方が楽であると思われます。</p>
-<p>point, faceについては、Ruby合宿2022の範囲では扱いませんが、複雑な形状においてより厳密な当たり
-判定を行う場合などに使用できる値です。</p>
-<h2 id=ウィンドウ上の任意の二次元座標からraycasterを作る>ウィンドウ上の任意の二次元座標からRaycasterを作る</h2>
-<p>言葉にすると分かりにくいかも知れませんが、要はマウス等でウィンドウ上の任意の座標をクリック
+で対象オブジェクトを取得し、distance_toで判定した方が楽であると思われます。</p><p>point, faceについては、Ruby合宿2022の範囲では扱いませんが、複雑な形状においてより厳密な当たり
+判定を行う場合などに使用できる値です。</p><h2 id=ウィンドウ上の任意の二次元座標からraycasterを作る>ウィンドウ上の任意の二次元座標からRaycasterを作る</h2><p>言葉にすると分かりにくいかも知れませんが、要はマウス等でウィンドウ上の任意の座標をクリック
 した際、そのクリックされた座標（2次元座標： ウィンドウ座標系）と交錯する3D空間内のオブジェクト
-を得る、というシチュエーションです。</p>
-<p>3DCGを作成するソフトウェアなどでは一般的な「3Dオブジェクトをクリックして選択する」といった
-ような挙動を実現する際に不可欠な機能です。</p>
-<p>では、2次元平面であるウィンドウ座標系から、どうやって奥行のある3次元座標系に配置されている
-3Dオブジェクトを特定するかということになりますが、これは、</p>
-<p>「カメラが存在している座標が、そのままウィンドウが3D空間内で見ている座標そのもの」</p>
-<p>という大前提に基づいて、カメラの現在位置をoriginとし、originからマウスでクリックされた座標
-に向かう単位ベクトルを生成してdirectionとすることで実現します。</p>
-<p>これもまた計算式は少々ややこしくなるのですが、やはりMittsu::Raycasterにはこれを簡単に
-計算してくれる素晴らしいメソッドが用意されています。</p>
-<p>それが「Mittsu::Raycaster#set_from_camera」です。</p>
-<p>具体的な使い方は以下のようになります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=n>raycaster</span><span class=o>.</span><span class=n>set_from_camera</span><span class=p>(</span><span class=n>mouse_position</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-</code></pre></div><p>ここで、「mouse_position」は、2次元ベクトルを表すMittsu::Vector2クラスのインスタンスです。</p>
-<p>重要な点として、この引数で渡す値は、ウィンドウ座標系そのままではダメで、単位ベクトル化しない
+を得る、というシチュエーションです。</p><p>3DCGを作成するソフトウェアなどでは一般的な「3Dオブジェクトをクリックして選択する」といった
+ような挙動を実現する際に不可欠な機能です。</p><p>では、2次元平面であるウィンドウ座標系から、どうやって奥行のある3次元座標系に配置されている
+3Dオブジェクトを特定するかということになりますが、これは、</p><p>「カメラが存在している座標が、そのままウィンドウが3D空間内で見ている座標そのもの」</p><p>という大前提に基づいて、カメラの現在位置をoriginとし、originからマウスでクリックされた座標
+に向かう単位ベクトルを生成してdirectionとすることで実現します。</p><p>これもまた計算式は少々ややこしくなるのですが、やはりMittsu::Raycasterにはこれを簡単に
+計算してくれる素晴らしいメソッドが用意されています。</p><p>それが「Mittsu::Raycaster#set_from_camera」です。</p><p>具体的な使い方は以下のようになります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>raycaster</span><span class=o>.</span><span class=n>set_from_camera</span><span class=p>(</span><span class=n>mouse_position</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span></code></pre></div><p>ここで、「mouse_position」は、2次元ベクトルを表すMittsu::Vector2クラスのインスタンスです。</p><p>重要な点として、この引数で渡す値は、ウィンドウ座標系そのままではダメで、単位ベクトル化しない
 といけない点にありますが、Mittsu::Vector3の場合と異なり今回はウィンドウ座標系からの変換になるので、
-少々複雑な変換式になります。</p>
-<p>本マニュアルのサンプルでは、ウィンドウのサイズは800x600で統一しています。</p>
-<p>このウィンドウ上のちょうど真ん中あたり（x: 400, y: 300）をクリックしたとしましょう。</p>
-<p>すると、この座標からset_from_cameraメソッドに渡すMittsu::Vector2インスタンスは次のように生成します。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=no>SCREEN_WIDTH</span> <span class=o>=</span> <span class=mi>800</span>
-<span class=no>SCREEN_HEIGHT</span> <span class=o>=</span> <span class=mi>600</span>
-<span class=n>position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>400</span><span class=p>,</span> <span class=mi>300</span><span class=p>)</span>
-<span class=n>mouse_position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span>
-<span class=n>mouse_position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>/</span> <span class=no>SCREEN_WIDTH</span><span class=p>)</span> <span class=o>*</span> <span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>-</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>mouse_position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=p>)</span> <span class=o>*</span> <span class=o>-</span><span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>+</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-</code></pre></div><p>※ 上記の式は、Mittsu公式サンプル集から引用し、見やすいように若干体裁を整えたものになります。</p>
-<p>実際の使用例として、3D空間内に20個の球をランダム配置し、それらをマウスクリックで選択（色を変える）
-できるようにするサンプルを掲載します。</p>
-<p>※ 陰影感を付けるため、DirectionalLightとMeshPhongMaterialを使っています。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
-
-<span class=no>SCREEN_WIDTH</span> <span class=o>=</span> <span class=mi>800</span>
-<span class=no>SCREEN_HEIGHT</span> <span class=o>=</span> <span class=mi>600</span>
-<span class=no>ASPECT</span> <span class=o>=</span> <span class=no>SCREEN_WIDTH</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=o>.</span><span class=n>to_f</span>
-
-<span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
-<span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=no>ASPECT</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=no>SCREEN_WIDTH</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=no>SCREEN_HEIGHT</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
-
-<span class=c1># 陰影をつけるためのライトを配置</span>
-<span class=n>light</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-<span class=n>light</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>light</span><span class=p>)</span>
-
-<span class=c1># 球オブジェクトをグルーピングするための親オブジェクトを生成</span>
-<span class=n>spheres</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Group</span><span class=o>.</span><span class=n>new</span>
-<span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>spheres</span><span class=p>)</span>
-
-<span class=c1># 20個の球オブジェクトを生成して、spheresオブジェクトの子として登録</span>
-<span class=mi>20</span><span class=o>.</span><span class=n>times</span> <span class=k>do</span>
-  <span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
-  <span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshPhongMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
-  <span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
-  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
-  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
-  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>15</span><span class=o>.</span><span class=mi>0</span>
-  <span class=n>spheres</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
-<span class=k>end</span>
-
-<span class=c1># Raycasterとマウス位置の単位ベクトルを収めるオブジェクトを生成</span>
-<span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span>
-<span class=n>mouse_position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span>
-
-<span class=c1># マウスクリックイベントハンドラを設定する</span>
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_mouse_button_pressed</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_button</span><span class=p>,</span> <span class=n>position</span><span class=o>|</span>
-  <span class=k>case</span> <span class=n>glfw_button</span>
-  <span class=c1># クリックされたボタンが左クリックである場合</span>
-  <span class=k>when</span> <span class=no>GLFW_MOUSE_BUTTON_LEFT</span>
-    <span class=c1># ウィンドウ座標から必要な単位ベクトルを生成</span>
-    <span class=n>mouse_position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>/</span> <span class=no>SCREEN_WIDTH</span><span class=p>)</span> <span class=o>*</span> <span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>-</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-    <span class=n>mouse_position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=p>)</span> <span class=o>*</span> <span class=o>-</span><span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>+</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
-
-    <span class=c1># 当たり判定実行</span>
-    <span class=n>raycaster</span><span class=o>.</span><span class=n>set_from_camera</span><span class=p>(</span><span class=n>mouse_position</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-    <span class=n>intersects</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=n>spheres</span><span class=o>.</span><span class=n>children</span><span class=p>)</span>
-    <span class=c1># 交差判定を得られたオブジェクト全ての色を赤に変更する</span>
-    <span class=n>intersects</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>intersect</span><span class=o>|</span>
-        <span class=n>intersect</span><span class=o>[</span><span class=ss>:object</span><span class=o>].</span><span class=n>material</span><span class=o>.</span><span class=n>color</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mh>0xff0000</span><span class=p>)</span>
-    <span class=k>end</span>
-  <span class=k>end</span>
-<span class=k>end</span>
-
-<span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
-  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
-<span class=k>end</span>
-</code></pre></div><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_3.gif width=640 height=480>
-</figure>
-<p>これらの機能と、イベントハンドラを組み合わせることで、思った以上に複雑な処理も実現できますので、
-是非チャレンジしてみてください。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+少々複雑な変換式になります。</p><p>本マニュアルのサンプルでは、ウィンドウのサイズは800x600で統一しています。</p><p>このウィンドウ上のちょうど真ん中あたり（x: 400, y: 300）をクリックしたとしましょう。</p><p>すると、この座標からset_from_cameraメソッドに渡すMittsu::Vector2インスタンスは次のように生成します。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=no>SCREEN_WIDTH</span> <span class=o>=</span> <span class=mi>800</span>
+</span></span><span class=line><span class=cl><span class=no>SCREEN_HEIGHT</span> <span class=o>=</span> <span class=mi>600</span>
+</span></span><span class=line><span class=cl><span class=n>position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>400</span><span class=p>,</span> <span class=mi>300</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mouse_position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>mouse_position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>/</span> <span class=no>SCREEN_WIDTH</span><span class=p>)</span> <span class=o>*</span> <span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>-</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mouse_position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=p>)</span> <span class=o>*</span> <span class=o>-</span><span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>+</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span></code></pre></div><p>※ 上記の式は、Mittsu公式サンプル集から引用し、見やすいように若干体裁を整えたものになります。</p><p>実際の使用例として、3D空間内に20個の球をランダム配置し、それらをマウスクリックで選択（色を変える）
+できるようにするサンプルを掲載します。</p><p>※ 陰影感を付けるため、DirectionalLightとMeshPhongMaterialを使っています。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=no>SCREEN_WIDTH</span> <span class=o>=</span> <span class=mi>800</span>
+</span></span><span class=line><span class=cl><span class=no>SCREEN_HEIGHT</span> <span class=o>=</span> <span class=mi>600</span>
+</span></span><span class=line><span class=cl><span class=no>ASPECT</span> <span class=o>=</span> <span class=no>SCREEN_WIDTH</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=o>.</span><span class=n>to_f</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=no>ASPECT</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>OpenGLRenderer</span><span class=o>.</span><span class=n>new</span> <span class=ss>width</span><span class=p>:</span> <span class=no>SCREEN_WIDTH</span><span class=p>,</span> <span class=ss>height</span><span class=p>:</span> <span class=no>SCREEN_HEIGHT</span><span class=p>,</span> <span class=ss>title</span><span class=p>:</span> <span class=s1>&#39;RubyCamp 2022&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 陰影をつけるためのライトを配置</span>
+</span></span><span class=line><span class=cl><span class=n>light</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>DirectionalLight</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mh>0xffffff</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>light</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>light</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 球オブジェクトをグルーピングするための親オブジェクトを生成</span>
+</span></span><span class=line><span class=cl><span class=n>spheres</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Group</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>scene</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>spheres</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 20個の球オブジェクトを生成して、spheresオブジェクトの子として登録</span>
+</span></span><span class=line><span class=cl><span class=mi>20</span><span class=o>.</span><span class=n>times</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=n>geometry</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>SphereGeometry</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>0</span><span class=o>.</span><span class=mi>5</span><span class=p>,</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>8</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>material</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>MeshPhongMaterial</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=ss>color</span><span class=p>:</span> <span class=mh>0x00ff00</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Mesh</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span> <span class=n>material</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>5</span><span class=o>.</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=n>mesh</span><span class=o>.</span><span class=n>position</span><span class=o>.</span><span class=n>z</span> <span class=o>=</span> <span class=nb>rand</span><span class=p>(</span><span class=mi>10</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span> <span class=o>-</span> <span class=mi>15</span><span class=o>.</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=n>spheres</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>mesh</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Raycasterとマウス位置の単位ベクトルを収めるオブジェクトを生成</span>
+</span></span><span class=line><span class=cl><span class=n>raycaster</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Raycaster</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl><span class=n>mouse_position</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Vector2</span><span class=o>.</span><span class=n>new</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># マウスクリックイベントハンドラを設定する</span>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>on_mouse_button_pressed</span> <span class=k>do</span> <span class=o>|</span><span class=n>glfw_button</span><span class=p>,</span> <span class=n>position</span><span class=o>|</span>
+</span></span><span class=line><span class=cl>  <span class=k>case</span> <span class=n>glfw_button</span>
+</span></span><span class=line><span class=cl>  <span class=c1># クリックされたボタンが左クリックである場合</span>
+</span></span><span class=line><span class=cl>  <span class=k>when</span> <span class=no>GLFW_MOUSE_BUTTON_LEFT</span>
+</span></span><span class=line><span class=cl>    <span class=c1># ウィンドウ座標から必要な単位ベクトルを生成</span>
+</span></span><span class=line><span class=cl>    <span class=n>mouse_position</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>x</span> <span class=o>/</span> <span class=no>SCREEN_WIDTH</span><span class=p>)</span> <span class=o>*</span> <span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>-</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>mouse_position</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=p>((</span><span class=n>position</span><span class=o>.</span><span class=n>y</span> <span class=o>/</span> <span class=no>SCREEN_HEIGHT</span><span class=p>)</span> <span class=o>*</span> <span class=o>-</span><span class=mi>2</span><span class=o>.</span><span class=mi>0</span> <span class=o>+</span> <span class=mi>1</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 当たり判定実行</span>
+</span></span><span class=line><span class=cl>    <span class=n>raycaster</span><span class=o>.</span><span class=n>set_from_camera</span><span class=p>(</span><span class=n>mouse_position</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>intersects</span> <span class=o>=</span> <span class=n>raycaster</span><span class=o>.</span><span class=n>intersect_objects</span><span class=p>(</span><span class=n>spheres</span><span class=o>.</span><span class=n>children</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 交差判定を得られたオブジェクト全ての色を赤に変更する</span>
+</span></span><span class=line><span class=cl>    <span class=n>intersects</span><span class=o>.</span><span class=n>each</span> <span class=k>do</span> <span class=o>|</span><span class=n>intersect</span><span class=o>|</span>
+</span></span><span class=line><span class=cl>        <span class=n>intersect</span><span class=o>[</span><span class=ss>:object</span><span class=o>].</span><span class=n>material</span><span class=o>.</span><span class=n>color</span><span class=o>.</span><span class=n>set</span><span class=p>(</span><span class=mh>0xff0000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>end</span>
+</span></span><span class=line><span class=cl>  <span class=k>end</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>end</span>
+</span></span></code></pre></div><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/10000_collision/fig_3.gif width=640 height=480>
+</figure><p>これらの機能と、イベントハンドラを組み合わせることで、思った以上に複雑な処理も実現できますので、
+是非チャレンジしてみてください。</p></div></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>

@@ -2,170 +2,96 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>Sceneクラス - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Sceneクラス - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-single">
+</head><body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li class=active>
+</li><li class=active>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
-<h1 class=title>Sceneクラス</h1>
-<div class=content>
-<h2 id=シーンsceneとは>シーン（Scene）とは</h2>
-<p>Mittsuにおける「シーン」（Scene）とは、3Dグラフィクスを表現するための3次元空間を表すものであり、
-X軸・Y軸・Z軸の3つの方向に無限に広がる3D空間を表現しています。</p>
-<p>この3D空間全体の座標系のことを、以後「ワールド座標系」と呼称します。</p>
-<p>下図は、シーン内のワールド座標系における原点（[0, 0, 0]）に、立方体（3Dキャラクタ）が
-配置されているイメージです。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_1.png width=640 height=480>
-</figure>
-<p>3Dキャラクタ、カメラ、光源等、Mittsuで扱う全てのオブジェクトはこのシーンの中に内包されることになります。</p>
-<p>ディスプレイ上に表示される3Dグラフィクスは、このシーン内に配置された「カメラ」を通じて見た光景が、
-ウィンドウという2次元平面に投影された状態と言うことが出来ます。</p>
-<h4 id=シーンのウィンドウ上での見え方>シーンのウィンドウ上での見え方</h4>
-<p>では、例えばシーン内の「0, 0, -5」の位置に緑色の立方体を配置し、原点（「0, 0, 0」）に
--Z方向を向いたカメラを配置したとしましょう。</p>
-<p>イメージとしては↓のようになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_2.png width=640 height=480>
-</figure>
-<p>この3D空間を実際にPCのディスプレイ上に配置された2次元のウィンドウに投影するのが、カメラの役割になります。</p>
-<p>カメラを通して得られた光景を「レンダラー」を通してウィンドウに投影した結果が↓になります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_3.png width=640 height=480>
-</figure>
-<h4 id=ローカル座標系>ローカル座標系</h4>
-<p>シーン全体の座標系であるワールド座標系とは別に、個々の3Dオブジェクト毎に持つ
-座標系を「ローカル座標系」と呼称します。</p>
-<p>例えば、前の図における立方体について考えます。</p>
-<p>立方体の1辺の長さを仮に「1」とした場合、立方体のある頂点Aの座標はどのように表現されるでしょうか？</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_4.png width=640 height=480>
-</figure>
-<p>立方体は、その中心点がワールド座標[0, 0, -5]の位置に配置されていますので、
-頂点Aの座標は、ワールド座標系で表せば、[0.5, 0.5, -5.5]と表現することができます。</p>
-<p>しかし、例えばこの立方体に別の3Dオブジェクトを少しだけ位置をずらして合体させる場合などでは、
-ワールド座標で物事を考えると複雑になってしまう場合があります。</p>
-<p>前述の例では、立方体に合体させた別の3Dオブジェクトは、立方体の動きや回転変更などに
-追随して、立方体との位置関係を常に同じに保つ必要があるとします。</p>
-<p>そうなると、立方体のワールド座標系での変化に、同じくワールド座標系を用いて位置や回転を合わせる
+</li></ul></div></div></div><div class="col-12 col-md-9">
+<h1 class=title>Sceneクラス</h1><div class=content>
+<h2 id=シーンsceneとは>シーン（Scene）とは</h2><p>Mittsuにおける「シーン」（Scene）とは、3Dグラフィクスを表現するための3次元空間を表すものであり、
+X軸・Y軸・Z軸の3つの方向に無限に広がる3D空間を表現しています。</p><p>この3D空間全体の座標系のことを、以後「ワールド座標系」と呼称します。</p><p>下図は、シーン内のワールド座標系における原点（[0, 0, 0]）に、立方体（3Dキャラクタ）が
+配置されているイメージです。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_1.png width=640 height=480>
+</figure><p>3Dキャラクタ、カメラ、光源等、Mittsuで扱う全てのオブジェクトはこのシーンの中に内包されることになります。</p><p>ディスプレイ上に表示される3Dグラフィクスは、このシーン内に配置された「カメラ」を通じて見た光景が、
+ウィンドウという2次元平面に投影された状態と言うことが出来ます。</p><h4 id=シーンのウィンドウ上での見え方>シーンのウィンドウ上での見え方</h4><p>では、例えばシーン内の「0, 0, -5」の位置に緑色の立方体を配置し、原点（「0, 0, 0」）に
+-Z方向を向いたカメラを配置したとしましょう。</p><p>イメージとしては↓のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_2.png width=640 height=480>
+</figure><p>この3D空間を実際にPCのディスプレイ上に配置された2次元のウィンドウに投影するのが、カメラの役割になります。</p><p>カメラを通して得られた光景を「レンダラー」を通してウィンドウに投影した結果が↓になります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_3.png width=640 height=480>
+</figure><h4 id=ローカル座標系>ローカル座標系</h4><p>シーン全体の座標系であるワールド座標系とは別に、個々の3Dオブジェクト毎に持つ
+座標系を「ローカル座標系」と呼称します。</p><p>例えば、前の図における立方体について考えます。</p><p>立方体の1辺の長さを仮に「1」とした場合、立方体のある頂点Aの座標はどのように表現されるでしょうか？</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_4.png width=640 height=480>
+</figure><p>立方体は、その中心点がワールド座標[0, 0, -5]の位置に配置されていますので、
+頂点Aの座標は、ワールド座標系で表せば、[0.5, 0.5, -5.5]と表現することができます。</p><p>しかし、例えばこの立方体に別の3Dオブジェクトを少しだけ位置をずらして合体させる場合などでは、
+ワールド座標で物事を考えると複雑になってしまう場合があります。</p><p>前述の例では、立方体に合体させた別の3Dオブジェクトは、立方体の動きや回転変更などに
+追随して、立方体との位置関係を常に同じに保つ必要があるとします。</p><p>そうなると、立方体のワールド座標系での変化に、同じくワールド座標系を用いて位置や回転を合わせる
 より、オブジェクトの中心点を原点とする、オブジェクトローカルの座標系で合わせた方が分かり
-やすくなります。</p>
-<p>図示すると、以下のようなイメージになります。</p>
-<figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_5.png>
-</figure>
-<p>赤線で示されたのが、オブジェクトの中心部を原点とするローカル座標系になります。</p>
-<p>このローカル座標系における頂点Aの座標は [0.5, 0.5, -0.5] であり、この値は、立方体の
-ワールド座標上の位置や回転がどのように変化しても変わることはありません。</p>
-<p>3Dアプリケーションを扱う上では、このワールド座標系とローカル座標系をしっかり区別して
-扱えるようにする必要があると言えます。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+やすくなります。</p><p>図示すると、以下のようなイメージになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/2000_scene/fig_5.png>
+</figure><p>赤線で示されたのが、オブジェクトの中心部を原点とするローカル座標系になります。</p><p>このローカル座標系における頂点Aの座標は [0.5, 0.5, -0.5] であり、この値は、立方体の
+ワールド座標上の位置や回転がどのように変化しても変わることはありません。</p><p>3Dアプリケーションを扱う上では、このワールド座標系とローカル座標系をしっかり区別して
+扱えるようにする必要があると言えます。</p></div></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>

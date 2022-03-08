@@ -2,202 +2,115 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>インストール - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>インストール - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-single">
+</head><body class="page page-default-single">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li class=active>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
-<h1 class=title>インストール</h1>
-<div class=content>
-<h2 id=rubyのインストール>Rubyのインストール</h2>
-<p>まずはRuby本体が必須ですので、Ruby本体をインストールします。</p>
-<p>※ インストーラーを使ってレジストリや環境変数を変更したくないという方は、
-後述の「簡単な実行環境準備方法」がお勧めです（ただ、7zipの解凍ができる環境が必要ですが）。</p>
-<p>インストーラーを使って導入したいという方は、まず<a href=https://rubyinstaller.org/ title=RubyInstallerへ移動>RubyInstaller</a>などから、
-ビルド済みバイナリを入手するのが良いでしょう。</p>
-<p>Ruby合宿2022では、Ruby 2.X系の最新バージョンである「2.7.5」を使用します。</p>
-<p>アーキテクチャは32bit/64bitどちらでも構いませんが、今回は32bit版を使用したいと思います。</p>
-<p>インストーラーを使ってインストールしても問題ありませんし、7zip版でインストーラーを使わずに導入しても問題ありません。</p>
-<p>最終的に、コマンドプロンプトから「ruby -v」と打ち込んで、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>ruby 2.7.5p203 (2021-11-24 revision f69aeb8314) [i386-mingw32]
-</code></pre></div><p>と表示できれば問題ありません。</p>
-<h2 id=rubygemsでmittsuをインストール>RubyGemsでMittsuをインストール</h2>
-<p>Ruby標準のパッケージ管理ツール「RubyGems」で、MittsuのライブラリをRuby実行環境にインストールします。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>&gt; gem install mittsu
-</code></pre></div><p>これだけでは、OpenGLでの描画を担ってくれるdllが入らないので、
+</li></ul></div></div></div><div class="col-12 col-md-9">
+<h1 class=title>インストール</h1><div class=content>
+<h2 id=rubyのインストール>Rubyのインストール</h2><p>まずはRuby本体が必須ですので、Ruby本体をインストールします。</p><p>※ インストーラーを使ってレジストリや環境変数を変更したくないという方は、
+後述の「簡単な実行環境準備方法」がお勧めです（ただ、7zipの解凍ができる環境が必要ですが）。</p><p>インストーラーを使って導入したいという方は、まず<a href=https://rubyinstaller.org/ title=RubyInstallerへ移動>RubyInstaller</a>などから、
+ビルド済みバイナリを入手するのが良いでしょう。</p><p>Ruby合宿2022では、Ruby 2.X系の最新バージョンである「2.7.5」を使用します。</p><p>アーキテクチャは32bit/64bitどちらでも構いませんが、今回は32bit版を使用したいと思います。</p><p>インストーラーを使ってインストールしても問題ありませんし、7zip版でインストーラーを使わずに導入しても問題ありません。</p><p>最終的に、コマンドプロンプトから「ruby -v」と打ち込んで、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>ruby 2.7.5p203 (2021-11-24 revision f69aeb8314) [i386-mingw32]
+</span></span></code></pre></div><p>と表示できれば問題ありません。</p><h2 id=rubygemsでmittsuをインストール>RubyGemsでMittsuをインストール</h2><p>Ruby標準のパッケージ管理ツール「RubyGems」で、MittsuのライブラリをRuby実行環境にインストールします。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&gt; gem install mittsu
+</span></span></code></pre></div><p>これだけでは、OpenGLでの描画を担ってくれるdllが入らないので、
 <a href=https://www.glfw.org/download.html title=GLFW公式へ移動>こちら</a>から、
-GLFWのWindows用バイナリをダウンロードしましょう。</p>
-<p>この時、インストールされたRubyのアーキテクチャと同じアーキテクチャのものを選ぶ
-必要がありますので、今回の場合は「32-bit Windows binaries」を選択します。</p>
-<p>そして、得られたアーカイブを展開し、導入済みのRubyのビルド環境に応じた「glfw3.dll」を探します。</p>
-<p>今回は、「ruby -v」の結果から32bitのMinGW版Rubyとなりますので、「lib-mingw」
-ディレクトリにある「glfw3.dll」が対象となります。</p>
-<p>この「glfw3.dll」をパスの通ったディレクトリに配置すれば、導入完了です。</p>
-<p>配置先はパスが通ってさえいればどこでも構いませんが、Rubyのbinディレクトリに入れてしまうのが
-分かりやすいのではないかと思います。</p>
-<h2 id=環境変数mittsu_libglfw_fileの設定>環境変数「MITTSU_LIBGLFW_FILE」の設定</h2>
-<p>mittsuでは、環境変数「MITTSU_LIBGLFW_FILE」によって「glfw3.dll」の位置を認識します。</p>
-<p>※ この環境変数名は将来的に変更されるかもしれません。</p>
-<p>ユーザー環境変数／システム環境変数のどちらでも構いませんので、上記環境変数を登録しておいてください。</p>
-<p>値は、先ほど「glfw3.dll」を配置した先の絶対パスになります。</p>
-<p>例えば、「C:¥ruby\bin」に同dllを配置したのであれば、</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>MITTSU_LIBGLFW_FILE=C:\ruby\bin\glfw3.dll
-</code></pre></div><p>となります。</p>
-<h2 id=簡単な実行環境準備方法>簡単な実行環境準備方法</h2>
-<p>前述のRubyInstallerのサイトでは、Ruby実行環境一式を7zipによるアーカイブ版としても公開しています。</p>
-<p>このアーカイブ版Rubyを使うと、インストーラーや環境変数の設定等無しに、
-今回の実行環境を1つのディレクトリ内で完結するように作ることもできます。</p>
-<p>※ 当然ながら、大前提として<a href=https://www.7-zip.org/ title=7zip公式へ移動>7zip</a>が事前にインストールされていなければなりませんが。</p>
-<p>具体的には、まず任意のドライブの任意のパスに、好きな名前の空ディレクトリを作ります。</p>
-<p>例えば、「D:\xxx\yyy\rubycamp」というディレクトリを作ったとしましょう。</p>
-<p>この「rubycamp」ディレクトリが、実行環境一式になります。</p>
-<p>環境が不要になったら、このディレクトリを丸ごと削除すれば、跡形もなくWindowsから消し去ることが可能です。</p>
-<p>では、具体的な中身を作ります。</p>
-<p>まず、<a href=https://rubyinstaller.org/downloads/ title=RubyInstaller公式へ移動>こちら</a>から7zip版Rubyをダウンロードします。</p>
-<p>今回は「Other Useful Downloads」の「7-ZIP ARCHIVES」から、「Ruby 2.7.5-1 (x86) 」をダウンロードしましょう。</p>
-<p>そして、ダウンロードした7zip形式（.7z）のアーカイブを展開し、その内容全てが先ほどの「rubycamp」ディレクトリ直下の「ruby」というディレクトリ下に収まるように配置してください。</p>
-<p>具体的には以下のようになります。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>D:\xxx\yyy
-  ├─ rubycamp
-  │     ├─ ruby
-  │     │     ├─ bin
-  │     │     ├─ include
-  │     │     ├─ lib
-          …
-</code></pre></div><p>ついでに、作成したソースコードをまとめておく「src」フォルダも「rubycamp」直下に作っておくと便利です。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>D:\xxx\yyy
-  ├─ rubycamp
-  │     ├─ ruby
-  │     │     ├─ bin
-  │     │     ├─ include
-  │     │     ├─ lib
-          …
-  ├─ src
-</code></pre></div><p>ここまで出来たら、後は「rubycamp」ディレクトリ直下に「cmd.bat」
-（ファイル名部分は任意に変更しても問題ありません）というテキストファイルを作成します。</p>
-<p>同テキストファイルをメモ帳等のエディタで開き、以下の内容を書き込んで保存します。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>@echo off
-set MITTSU_LIBGLFW_FILE=%~dp0ruby\bin\glfw3.dll
-set PATH=%~dp0ruby\bin;%PATH%
-
-cd %~dp0src
-%COMSPEC%
-</code></pre></div><p>この後は、作成した「cmd.bat」をエクスプローラーからダブルクリックすれば、
+GLFWのWindows用バイナリをダウンロードしましょう。</p><p>この時、インストールされたRubyのアーキテクチャと同じアーキテクチャのものを選ぶ
+必要がありますので、今回の場合は「32-bit Windows binaries」を選択します。</p><p>そして、得られたアーカイブを展開し、導入済みのRubyのビルド環境に応じた「glfw3.dll」を探します。</p><p>今回は、「ruby -v」の結果から32bitのMinGW版Rubyとなりますので、「lib-mingw」
+ディレクトリにある「glfw3.dll」が対象となります。</p><p>この「glfw3.dll」をパスの通ったディレクトリに配置すれば、導入完了です。</p><p>配置先はパスが通ってさえいればどこでも構いませんが、Rubyのbinディレクトリに入れてしまうのが
+分かりやすいのではないかと思います。</p><h2 id=環境変数mittsu_libglfw_fileの設定>環境変数「MITTSU_LIBGLFW_FILE」の設定</h2><p>mittsuでは、環境変数「MITTSU_LIBGLFW_FILE」によって「glfw3.dll」の位置を認識します。</p><p>※ この環境変数名は将来的に変更されるかもしれません。</p><p>ユーザー環境変数／システム環境変数のどちらでも構いませんので、上記環境変数を登録しておいてください。</p><p>値は、先ほど「glfw3.dll」を配置した先の絶対パスになります。</p><p>例えば、「C:¥ruby\bin」に同dllを配置したのであれば、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>MITTSU_LIBGLFW_FILE=C:\ruby\bin\glfw3.dll
+</span></span></code></pre></div><p>となります。</p><h2 id=簡単な実行環境準備方法>簡単な実行環境準備方法</h2><p>前述のRubyInstallerのサイトでは、Ruby実行環境一式を7zipによるアーカイブ版としても公開しています。</p><p>このアーカイブ版Rubyを使うと、インストーラーや環境変数の設定等無しに、
+今回の実行環境を1つのディレクトリ内で完結するように作ることもできます。</p><p>※ 当然ながら、大前提として<a href=https://www.7-zip.org/ title=7zip公式へ移動>7zip</a>が事前にインストールされていなければなりませんが。</p><p>具体的には、まず任意のドライブの任意のパスに、好きな名前の空ディレクトリを作ります。</p><p>例えば、「D:\xxx\yyy\rubycamp」というディレクトリを作ったとしましょう。</p><p>この「rubycamp」ディレクトリが、実行環境一式になります。</p><p>環境が不要になったら、このディレクトリを丸ごと削除すれば、跡形もなくWindowsから消し去ることが可能です。</p><p>では、具体的な中身を作ります。</p><p>まず、<a href=https://rubyinstaller.org/downloads/ title=RubyInstaller公式へ移動>こちら</a>から7zip版Rubyをダウンロードします。</p><p>今回は「Other Useful Downloads」の「7-ZIP ARCHIVES」から、「Ruby 2.7.5-1 (x86) 」をダウンロードしましょう。</p><p>そして、ダウンロードした7zip形式（.7z）のアーカイブを展開し、その内容全てが先ほどの「rubycamp」ディレクトリ直下の「ruby」というディレクトリ下に収まるように配置してください。</p><p>具体的には以下のようになります。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>D:\xxx\yyy
+</span></span><span class=line><span class=cl>  ├─ rubycamp
+</span></span><span class=line><span class=cl>  │     ├─ ruby
+</span></span><span class=line><span class=cl>  │     │     ├─ bin
+</span></span><span class=line><span class=cl>  │     │     ├─ include
+</span></span><span class=line><span class=cl>  │     │     ├─ lib
+</span></span><span class=line><span class=cl>          …
+</span></span></code></pre></div><p>ついでに、作成したソースコードをまとめておく「src」フォルダも「rubycamp」直下に作っておくと便利です。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>D:\xxx\yyy
+</span></span><span class=line><span class=cl>  ├─ rubycamp
+</span></span><span class=line><span class=cl>  │     ├─ ruby
+</span></span><span class=line><span class=cl>  │     │     ├─ bin
+</span></span><span class=line><span class=cl>  │     │     ├─ include
+</span></span><span class=line><span class=cl>  │     │     ├─ lib
+</span></span><span class=line><span class=cl>          …
+</span></span><span class=line><span class=cl>  ├─ src
+</span></span></code></pre></div><p>ここまで出来たら、後は「rubycamp」ディレクトリ直下に「cmd.bat」
+（ファイル名部分は任意に変更しても問題ありません）というテキストファイルを作成します。</p><p>同テキストファイルをメモ帳等のエディタで開き、以下の内容を書き込んで保存します。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>@echo off
+</span></span><span class=line><span class=cl>set MITTSU_LIBGLFW_FILE=%~dp0ruby\bin\glfw3.dll
+</span></span><span class=line><span class=cl>set PATH=%~dp0ruby\bin;%PATH%
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>cd %~dp0src
+</span></span><span class=line><span class=cl>%COMSPEC%
+</span></span></code></pre></div><p>この後は、作成した「cmd.bat」をエクスプローラーからダブルクリックすれば、
 Ruby実行環境が整ったコマンドプロンプトが開きますので、後は上述の「RubyGemsでのインストール」から
 作業を行ってMittsuのインストールとGLFWの導入を行ってください。
-環境変数「MITTSU_LIBGLFW_FILE」の設定は、上記cmd.batに既に入っているので実施不要です。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+環境変数「MITTSU_LIBGLFW_FILE」の設定は、上記cmd.batに既に入っているので実施不要です。</p></div></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>

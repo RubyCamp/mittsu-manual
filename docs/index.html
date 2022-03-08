@@ -2,175 +2,92 @@
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="ie=edge">
-<title>Mittsuリファレンスガイド - Ruby合宿2022春・Mittsuライブラリマニュアル</title>
-<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Mittsuリファレンスガイド - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
 <link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
 <link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head>
-<body class="page page-default-list">
+</head><body class="page page-default-list">
 <div id=main-menu-mobile class=main-menu-mobile>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<div class=wrapper>
+</li></ul></div><div class=wrapper>
 <div class=header>
 <div class=container>
 <div class=logo>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div>
-<div class=logo-mobile>
+</div><div class=logo-mobile>
 <a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div>
-<div id=main-menu class=main-menu>
+</div><div id=main-menu class=main-menu>
 <ul>
 <li class=menu-item-home>
 <a href=https://rubycamp.github.io/mittsu-manual/>
 <span>Home</span>
 </a>
-</li>
-<li class=menu-item-リファレンスガイド>
+</li><li class=menu-item-リファレンスガイド>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/>
 <span>リファレンスガイド</span>
 </a>
-</li>
-</ul>
-</div>
-<button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
 <span class=hamburger-box>
 <span class=hamburger-inner></span>
 </span>
 </button>
-</div>
-</div>
-<div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
 <div class=row>
 <div class="col-12 col-md-3 mb-3">
 <div class=sidebar>
 <div class=docs-menu>
-<h4>Docs</h4>
-<ul>
+<h4>Docs</h4><ul>
 <li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li>
-<li>
+</li><li>
 <a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-12 col-md-9">
+</li></ul></div></div></div><div class="col-12 col-md-9">
 <span class=overview>Overview</span>
-<h1 class=title>Mittsuリファレンスガイド</h1>
-<div class=content>
-<h2 id=mittsuとは>Mittsuとは</h2>
-<p><a href=https://github.com/danini-the-panini/mittsu title=Mittsu公式サイトへ移動>Mittsu</a>は、RubyからOpenGLを介して3Dグラフィクスを扱えるようにするライブラリです。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a></h2>
-<p>Windows環境におけるMittsuのインストール方法を説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a></h2>
-<p>Mittsuの基本的な使い方を理解しよう。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a></h2>
-<p>3D空間を表現するSceneクラスについて説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a></h2>
-<p>Mittsuにおける3Dオブジェクトの基本クラスであるObject3Dについて説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a></h2>
-<p>3D空間をウィンドウ上に投影するためのRendererクラスについて説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a></h2>
-<p>シーンに登場する物体の形状を決定付けるジオメトリの種類と扱い方について説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a></h2>
-<p>シーンに登場する物体の質感や表面の色などを決定付けるマテリアルの種類と扱い方について説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a></h2>
-<p>ジオメトリとマテリアルから3D空間内に登録されるメッシュ（物体）を作ります。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a></h2>
-<p>3D空間であるシーンを照らすライト（光源）について説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a></h2>
-<p>3D空間であるシーンを撮影し、レンダラーに表示するカットを得るためのカメラについて説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a></h2>
-<p>Mittsuの世界で発生する各種イベントとその扱い方について説明します。</p>
-</div>
-<div class="summary mb-2">
-<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a></h2>
-<p>3D空間における物体同士の当たり判定について説明します。</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class=sub-footer>
+<h1 class=title>Mittsuリファレンスガイド</h1><div class=content>
+<h2 id=mittsuとは>Mittsuとは</h2><p><a href=https://github.com/danini-the-panini/mittsu title=Mittsu公式サイトへ移動>Mittsu</a>は、RubyからOpenGLを介して3Dグラフィクスを扱えるようにするライブラリです。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a></h2><p>Windows環境におけるMittsuのインストール方法を説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a></h2><p>Mittsuの基本的な使い方を理解しよう。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a></h2><p>3D空間を表現するSceneクラスについて説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a></h2><p>Mittsuにおける3Dオブジェクトの基本クラスであるObject3Dについて説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a></h2><p>3D空間をウィンドウ上に投影するためのRendererクラスについて説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a></h2><p>シーンに登場する物体の形状を決定付けるジオメトリの種類と扱い方について説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a></h2><p>シーンに登場する物体の質感や表面の色などを決定付けるマテリアルの種類と扱い方について説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a></h2><p>ジオメトリとマテリアルから3D空間内に登録されるメッシュ（物体）を作ります。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a></h2><p>3D空間であるシーンを照らすライト（光源）について説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a></h2><p>3D空間であるシーンを撮影し、レンダラーに表示するカットを得るためのカメラについて説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a></h2><p>Mittsuの世界で発生する各種イベントとその扱い方について説明します。</p></div><div class="summary mb-2">
+<h2 class=title-summary><a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a></h2><p>3D空間における物体同士の当たり判定について説明します。</p></div></div></div></div></div><div class=sub-footer>
 <div class=container>
 <div class=row>
 <div class=col-12>
 <div class=sub-footer-inner>
 <ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.eaf147370baecdd07c022597db631f99cab1c9cd6479de586f30327a568d6a0f.js></script>
-</body>
-</html>
+<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
+</body></html>
