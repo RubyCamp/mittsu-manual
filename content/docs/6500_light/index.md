@@ -200,36 +200,6 @@ figure src="/images/6500_light/fig_4.gif"
 class="center" width="640" height="480"
 >}}
 
-##### PointLight
-
-ポイントライトは、スポットライトと似ていますが、設置した位置から全方位に対して
-光を発する点がスポットライトと異なります。
-
-全ての方位に光を放ってくれるので、扱いやすい反面絵としてはのっぺりとした印象に
-なりやすい特徴があります。
-
-initializeメソッドは以下のようになります。
-
-```ruby
-Mittsu::PointLight.new(
-	color = nil, intensity = 1.0,
-    distance = 0.0, decay = 1.0) #-> PointLight
-```
-
-| 引数 | 意味 |
-|------|------|
-| color | 光源の色（光の色） |
-| intensity | 光源の強さ |
-| distance | ライトが照らす距離 |
-| decay | 減衰率 |
-
-サンプルのライトをPointLightに変更すると、以下のように見えます。
-
-{{<
-    figure src="/images/6500_light/fig_4.gif"
-    class="center" width="640" height="480"
->}}
-
 ## ライトの操作
 
 ライトもまたメッシュやカメラと同じくObject3Dクラスを継承しています。
