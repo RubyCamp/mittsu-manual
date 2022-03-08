@@ -263,40 +263,53 @@ mesh1.position.x = 2
 mesh2.position.z = -4
 mesh2.position.x = -2
 
+# 交差判定用Raycasterの向きを決定する単位ベクトルを生成する
+norm_vector = Mittsu::Vector3.new(-1, 0, 0).normalize
+
 # 交差判定用のRaycasterオブジェクトを生成する
-# 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向
-# （画面左。緑の大きい球の方向）に向けて光線を飛ばす
-raycaster = Mittsu::Raycaster.new(mesh1.position, Mittsu::Vector3.new(-1, 0, 0).normalize)
+raycaster = Mittsu::Raycaster.new
 
 renderer.window.run do
-  mesh2.position.x += 0.03
+	mesh2.position.x += 0.03
 
-  # Mittsu::Raycaster#intersect_objectsで、交差判定を実行
-  # 引数は、交差判定対象となるオブジェクトの配列となる
-  # （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）
-  collisions = raycaster.intersect_objects([mesh2])
-  
-  # 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある
-  # オブジェクトが存在するということになる
-  if collisions.size > 0
-    # 最も近距離にあるオブジェクトを得る
-    obj = collisions.first[:object]
-    # 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る
-    distance = mesh1.position.distance_to(obj.position)
-    # 後は同じ
-    if distance <= 1.5
-      scene.remove(obj)
-    end
-  end
-  renderer.render(scene, camera)
+	# raycasterの発射点を更新する
+	# 原点はmesh1（画面右側の赤く小さい球）の中心座標とし、そこから-X方向
+	# （画面左。緑の大きい球の方向）に向けて光線を飛ばす
+	raycaster.set(mesh1.position, norm_vector)
+
+	# Mittsu::Raycaster#intersect_objectsで、交差判定を実行
+	# 引数は、交差判定対象となるオブジェクトの配列となる
+	# （今回はサンプルなので要素1つのみだが、任意の個数判定対象にできる）
+	collisions = raycaster.intersect_objects([mesh2])
+
+	# 配列として返ってくる交差判定結果の件数が1件以上あれば当たっている可能性のある
+	# オブジェクトが存在するということになる
+	if collisions.size > 0
+		# 最も近距離にあるオブジェクトを得る
+		obj = collisions.first[:object]
+		# 当該オブジェクトと、当たり判定元オブジェクトの位置との距離を測る
+		distance = mesh1.position.distance_to(obj.position)
+		# 後は同じ
+		if distance <= 1.5
+			scene.remove(obj)
+		end
+	end
+	renderer.render(scene, camera)
 end
 ```
 
 実行結果は先のサンプルと同じになります。
 
-ここで、Mittsu::Raycaster#intersect_objectsというメソッドが登場しました。
+ここで、Mittsu::Raycaster#set, Mittsu::Raycaster#intersect_objectsという
+メソッドが登場しました。
 
-このメソッドで、交差判定を実施します。
+
+Mittsu::Raycaster#setで、光線を発射する原点と向きを決定し、交差判定を実施します。
+
+setの引数は、光線発射位置となるMittsu::Vector3オブジェクト（多くの場合、メッシュの
+positionになります）と、光線の向きを表す単位ベクトル（Mittsu::Vector3）です。
+
+そして、setで飛ばした光線とオブジェクトの交点検出を行うのが、Mittsu::Raycaster#intersect_objectsです。
 
 引数には、当該Raycasterで交差判定を行う全ての対象オブジェクトが入った配列を指定します。
 
