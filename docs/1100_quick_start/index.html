@@ -1,76 +1,5 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="ie=edge">
-<title>クイックスタートガイド - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1">
-<link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png>
-<link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css>
-</head><body class="page page-default-single">
-<div id=main-menu-mobile class=main-menu-mobile>
-<ul>
-<li class=menu-item-home>
-<a href=https://rubycamp.github.io/mittsu-manual/>
-<span>Home</span>
-</a>
-</li><li class=menu-item-リファレンスガイド>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/>
-<span>リファレンスガイド</span>
-</a>
-</li></ul></div><div class=wrapper>
-<div class=header>
-<div class=container>
-<div class=logo>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a>
-</div><div class=logo-mobile>
-<a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a>
-</div><div id=main-menu class=main-menu>
-<ul>
-<li class=menu-item-home>
-<a href=https://rubycamp.github.io/mittsu-manual/>
-<span>Home</span>
-</a>
-</li><li class=menu-item-リファレンスガイド>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/>
-<span>リファレンスガイド</span>
-</a>
-</li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-</div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6">
-<div class=row>
-<div class="col-12 col-md-3 mb-3">
-<div class=sidebar>
-<div class=docs-menu>
-<h4>Docs</h4><ul>
-<li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a>
-</li><li class=active>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a>
-</li><li>
-<a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a>
-</li></ul></div></div></div><div class="col-12 col-md-9">
-<h1 class=title>クイックスタートガイド</h1><div class=content>
-<h2 id=最もシンプルなmittsuプログラム>最もシンプルなMittsuプログラム</h2><p>以下のプログラムを、「main.rb」等の好きなファイル名で保存し、実行してみましょう。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><title>クイックスタートガイド - Ruby合宿2022春・Mittsuライブラリマニュアル</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=https://rubycamp.github.io/mittsu-manual/favicon.png><link rel=stylesheet href=https://rubycamp.github.io/mittsu-manual/css/style.min.6719d72e323121369d5caeb4264b95d8a63cf1deaab029da67602fe5a046e0a4.css></head><body class="page page-default-single"><div id=main-menu-mobile class=main-menu-mobile><ul><li class=menu-item-home><a href=https://rubycamp.github.io/mittsu-manual/><span>Home</span></a></li><li class=menu-item-リファレンスガイド><a href=https://rubycamp.github.io/mittsu-manual/docs/><span>リファレンスガイド</span></a></li></ul></div><div class=wrapper><div class=header><div class=container><div class=logo><a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo.svg></a></div><div class=logo-mobile><a href=https://rubycamp.github.io/mittsu-manual><img alt=Logo src=https://rubycamp.github.io/mittsu-manual/images/logo-mobile.svg></a></div><div id=main-menu class=main-menu><ul><li class=menu-item-home><a href=https://rubycamp.github.io/mittsu-manual/><span>Home</span></a></li><li class=menu-item-リファレンスガイド><a href=https://rubycamp.github.io/mittsu-manual/docs/><span>リファレンスガイド</span></a></li></ul></div><button id=toggle-main-menu-mobile class="hamburger hamburger--slider" type=button>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button></div></div><div class="container pt-2 pt-md-6 pb-3 pb-md-6"><div class=row><div class="col-12 col-md-3 mb-3"><div class=sidebar><div class=docs-menu><h4>Docs</h4><ul><li><a href=https://rubycamp.github.io/mittsu-manual/docs/1000_install/>インストール</a></li><li class=active><a href=https://rubycamp.github.io/mittsu-manual/docs/1100_quick_start/>クイックスタートガイド</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/1150_scene/>Sceneクラス</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/1200_object_3d/>Object3Dクラス</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/3000_renderer/>Rendererクラス</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/4000_geometry/>ジオメトリ（形状）</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/5000_material/>マテリアル（質感）</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/6000_mesh/>メッシュ（物体）</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/6500_light/>ライト</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/7000_camera/>カメラ</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/8000_events/>イベント</a></li><li><a href=https://rubycamp.github.io/mittsu-manual/docs/10000_collision/>当たり判定について</a></li></ul></div></div></div><div class="col-12 col-md-9"><h1 class=title>クイックスタートガイド</h1><div class=content><h2 id=最もシンプルなmittsuプログラム>最もシンプルなMittsuプログラム</h2><p>以下のプログラムを、「main.rb」等の好きなファイル名で保存し、実行してみましょう。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=nb>require</span> <span class=s1>&#39;mittsu&#39;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=n>scene</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>Scene</span><span class=o>.</span><span class=n>new</span>
 </span></span><span class=line><span class=cl><span class=n>camera</span> <span class=o>=</span> <span class=no>Mittsu</span><span class=o>::</span><span class=no>PerspectiveCamera</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=mi>75</span><span class=o>.</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=o>.</span><span class=mi>333</span><span class=p>,</span> <span class=mi>0</span><span class=o>.</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1000</span><span class=o>.</span><span class=mi>0</span><span class=p>)</span>
@@ -79,8 +8,7 @@
 </span></span><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
 </span></span><span class=line><span class=cl>	<span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>end</span>
-</span></span></code></pre></div><p>成功した場合、以下のようなウィンドウが現れます。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/hello_mittsu.png width=640 height=480><figcaption>
-<h4>実行結果</h4></figcaption></figure><p>真っ黒で何も表示されていませんが、この真っ暗な画面こそがMittsuのSceneクラスが
+</span></span></code></pre></div><p>成功した場合、以下のようなウィンドウが現れます。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/hello_mittsu.png width=640 height=480><figcaption><h4>実行結果</h4></figcaption></figure><p>真っ黒で何も表示されていませんが、この真っ暗な画面こそがMittsuのSceneクラスが
 提供する3D空間をカメラ（今回は「Mittsu::PerspectiveCamera」を使用）で撮影し、
 レンダラー（今回は「Mittsu::OpenGLRenderer」を使用）でディスプレイ上のウィンドウ
 に投影した結果になります。</p><p>真っ暗なのは、現在このカメラが映し出す範囲のシーン（3D空間）に、何の物体も存在
@@ -102,13 +30,11 @@
 </span></span><span class=line><span class=cl><span class=k>end</span>
 </span></span></code></pre></div><p>ここで新たに「Mittsu::BoxGeometry」「Mittsu::MeshBasicMaterial」「Mittsu::Mesh」という
 クラスが登場しました。
-これらを本ドキュメントではそれぞれ、</p><ul>
-<li>「ジオメトリ」（Geometry: 形状）</li><li>「マテリアル」（Material: 質感）</li><li>「メッシュ」（Mesh: 物体）</li></ul><p>と呼称します。</p><p>ざっくり説明すると、3D空間に位置情報を伴って表示されるのが「メッシュ」であり、
+これらを本ドキュメントではそれぞれ、</p><ul><li>「ジオメトリ」（Geometry: 形状）</li><li>「マテリアル」（Material: 質感）</li><li>「メッシュ」（Mesh: 物体）</li></ul><p>と呼称します。</p><p>ざっくり説明すると、3D空間に位置情報を伴って表示されるのが「メッシュ」であり、
 そのメッシュの見た目の形を決めるのが「ジオメトリ」。</p><p>そして、メッシュがどういった材質でできているか（質感）を表現するのが「マテリアル」
 となります。</p><p>今回は、BoxGeometryを用いて立方体の形状をしたメッシュを、MeshBasicMaterial
 （標準的な単色マテリアル）で緑色に塗り潰してメッシュ化しました。</p><p>そして、生成されたメッシュの3D空間内における位置情報（X, Y, Zの3次元座標で表される）
-として、原点（[0, 0, 0]）からZ方向に-5だけ移動させて、シーンに追加しました。</p><p>この最後のシーンへの追加を行わないと、メッシュは3D空間内に出現しませんので注意が必要です。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_1.png width=640 height=480><figcaption>
-<h4>実行結果</h4></figcaption></figure><p>実行結果はこのようになります。</p><p>カメラは、追加した時点では原点から-Z方向に向いて撮影していますので、原点からZ方向に-5
+として、原点（[0, 0, 0]）からZ方向に-5だけ移動させて、シーンに追加しました。</p><p>この最後のシーンへの追加を行わないと、メッシュは3D空間内に出現しませんので注意が必要です。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_1.png width=640 height=480><figcaption><h4>実行結果</h4></figcaption></figure><p>実行結果はこのようになります。</p><p>カメラは、追加した時点では原点から-Z方向に向いて撮影していますので、原点からZ方向に-5
 移動した立方体は、御覧のように正方形のように見えます。</p><h2 id=キャラクタを回転させてみよう>キャラクタを回転させてみよう</h2><p>これだと、あまり3D感がありませんので、この緑色をした立方体を回転させてみましょう。</p><p>現在、</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
 </span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>end</span>
@@ -119,19 +45,10 @@
 </span></span></code></pre></div><p>のようにしてみましょう。</p><p>追加したコードは、メッシュに対して「X軸に沿って0.05だけ回転角を増やせ」というものです。</p><p>これを、「renderer.window.run」メソッドのブロック（do～endの間）に記述すると、
 同メソッドが1フレーム描画する毎（デフォルトでは1秒間に60フレーム描画される）に
 毎回実行してくれます。</p><p>つまり、このコードはX軸時計回り方向にわずかに回転する運動を1フレーム毎に繰り返すことで、
-スムーズに回転しているように見えるはずです。</p><p>それでは、実行結果を見てみましょう。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_2.gif width=640 height=480><figcaption>
-<h4>実行結果</h4></figcaption></figure><p>確かに期待通りに動作していますね。</p><p>カメラは現在-Z方向を向いていますので、立方体が指定通りの向きに回転していることが分かります。</p><p>1フレームの回転角として現在は「0.05」を指定していますが、これを「-0.05」とすれば、回転
+スムーズに回転しているように見えるはずです。</p><p>それでは、実行結果を見てみましょう。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_2.gif width=640 height=480><figcaption><h4>実行結果</h4></figcaption></figure><p>確かに期待通りに動作していますね。</p><p>カメラは現在-Z方向を向いていますので、立方体が指定通りの向きに回転していることが分かります。</p><p>1フレームの回転角として現在は「0.05」を指定していますが、これを「-0.05」とすれば、回転
 方向が反転しますし、数値を大きくすれば回転速度が増し、小さくすれば回転速度が遅くなります。</p><p>また、1フレームに複数の軸で回転を行うことで、複雑な回転も表現できます。</p><p>例えば、以下のようにY軸方向にも回すようにしてみましょう。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ruby data-lang=ruby><span class=line><span class=cl><span class=n>renderer</span><span class=o>.</span><span class=n>window</span><span class=o>.</span><span class=n>run</span> <span class=k>do</span>
 </span></span><span class=line><span class=cl>  <span class=n>mesh</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>x</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
 </span></span><span class=line><span class=cl>  <span class=n>mesh</span><span class=o>.</span><span class=n>rotation</span><span class=o>.</span><span class=n>y</span> <span class=o>+=</span> <span class=mi>0</span><span class=o>.</span><span class=mo>05</span>
 </span></span><span class=line><span class=cl>  <span class=n>renderer</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>scene</span><span class=p>,</span> <span class=n>camera</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=k>end</span>
-</span></span></code></pre></div><p>Y軸（縦軸）でも時計回りに回転するようになりますので、実行結果は以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_3.gif width=640 height=480><figcaption>
-<h4>実行結果</h4></figcaption></figure></div></div></div></div></div></div><div class=sub-footer>
-<div class=container>
-<div class=row>
-<div class=col-12>
-<div class=sub-footer-inner>
-<ul>
-<li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.bafc052229b4b40bf03c477d31c5cdd9352ece8afbadf35ab97ed14495098fc9.js></script>
-</body></html>
+</span></span></code></pre></div><p>Y軸（縦軸）でも時計回りに回転するようになりますので、実行結果は以下のようになります。</p><figure class=center><img src=https://rubycamp.github.io/mittsu-manual/images/1100_quick_start/fig_3.gif width=640 height=480><figcaption><h4>実行結果</h4></figcaption></figure></div></div></div></div></div></div><div class=sub-footer><div class=container><div class=row><div class=col-12><div class=sub-footer-inner><ul><li class=zerostatic><a href=https://www.zerostatic.io>www.zerostatic.io</a></li></ul></div></div></div></div></div><script type=text/javascript src=https://rubycamp.github.io/mittsu-manual/js/scripts.min.55e8e1e2e7596c9a982bc04119cee1e2d4624c4c5a2dc0e9eb63ce401be14a24.js></script></body></html>
