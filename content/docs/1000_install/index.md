@@ -16,7 +16,7 @@ summary: Windows環境におけるMittsuのインストール方法を説明し�
 インストーラーを使って導入したいという方は、まず[RubyInstaller](https://rubyinstaller.org/ "RubyInstallerへ移動")などから、
 ビルド済みバイナリを入手するのが良いでしょう。
 
-Ruby合宿2022では、Ruby 2.X系の最新バージョンである「2.7.5」を使用します。
+Ruby合宿2022では、Ruby 3.X系の最新バージョンである「3.1.2」を使用します。
 
 アーキテクチャは32bit/64bitどちらでも構いませんが、今回は32bit版を使用したいと思います。
 
@@ -25,10 +25,10 @@ Ruby合宿2022では、Ruby 2.X系の最新バージョンである「2.7.5」�
 最終的に、コマンドプロンプトから「ruby -v」と打ち込んで、
 
 ```
-ruby 2.7.5p203 (2021-11-24 revision f69aeb8314) [i386-mingw32]
+ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [i386-mingw32]
 ```
 
-と表示できれば問題ありません。
+のように表示できれば問題ありません。
 
 
 ## RubyGemsでMittsuをインストール
@@ -95,7 +95,7 @@ MITTSU_LIBGLFW_FILE=C:\ruby\bin\glfw3.dll
 
 まず、[こちら](https://rubyinstaller.org/downloads/ "RubyInstaller公式へ移動")から7zip版Rubyをダウンロードします。
 
-今回は「Other Useful Downloads」の「7-ZIP ARCHIVES」から、「Ruby 2.7.5-1 (x86) 」をダウンロードしましょう。
+今回は「Other Useful Downloads」の「7-ZIP ARCHIVES」から、「Ruby 3.1.2-1 (x86) 」をダウンロードしましょう。
 
 そして、ダウンロードした7zip形式（.7z）のアーカイブを展開し、その内容全てが先ほどの「rubycamp」ディレクトリ直下の「ruby」というディレクトリ下に収まるように配置してください。
 
